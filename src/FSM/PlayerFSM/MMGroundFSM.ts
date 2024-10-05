@@ -2,6 +2,7 @@ import { C } from "../../C";
 import { FacingEnum } from "../../Entities/Entity";
 import { MM } from "../../Entities/MM"
 import { EffectTypes } from "../../enums/EffectTypes";
+import { EntityMessages } from "../../enums/EntityMessages";
 import { IHVI } from "../../IH/IH";
 import { FSMModule } from "../FSMModule"
 
@@ -12,6 +13,8 @@ export class MMGroundFSM extends FSMModule {
         this.mm.sprite.on('animationupdate', this.AnimationUpdate, this);
         // this.mm.scene.events.on('mergedInput', this.CheckInput, this);
         this.mm.AddAnimationSuffix = true;
+        this.mm.on(EntityMessages.TRY_ATTACK, this.mm.TryAttack, this);
+
     }
 
 
@@ -24,7 +27,8 @@ export class MMGroundFSM extends FSMModule {
 
     moduleEnd(args: any): void {
         // this.mm.scene.events.removeListener('mergedInput', this.CheckInput, this);
-        this.mm.sprite.removeListener('animationupdate', this.AnimationUpdate, this);
+        this.mm.removeListener('animationupdate', this.AnimationUpdate, this);
+        this.mm.removeListener(EntityMessages.TRY_ATTACK, this.mm.TryAttack, this);
     }
 
     // CheckInput(i:{ device:string, value:number, player:number, action:string, state:string }) {
@@ -81,7 +85,20 @@ export class MMGroundFSM extends FSMModule {
 
     }
     SetAnimation() {
-        
+        if(Math.abs(this.mm.PointerAngleDeg) > 90)
+            this.mm.sprite.flipX = true;
+        else    
+            this.mm.sprite.flipX = false;
+        if(this.mm.PointerAngleDeg < 0) 
+            this.mm.AnimationSuffix = '_Up';
+        else
+            this.mm.AnimationSuffix = '_Down';
 
+
+        // if(this.mm.shadow.body.velocity.length() > 0) {
+            // this.mm.PlayAnimation('Run'+this.mm.AnimationSuffix);
+        // } else {
+            this.mm.PlayAnimation('Stand');
+        // }
     }
 }

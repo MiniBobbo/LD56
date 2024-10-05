@@ -2,10 +2,9 @@ import { AttackInstance } from "../attacks/AttackInstance";
 import { C } from "../C";
 import { AttackTypes } from "../enums/AttackTypes";
 import { EntityMessages } from "../enums/EntityMessages";
-import { PowerTypes } from "../enums/PowerTypes";
+import { MMAttackFSM } from "../FSM/PlayerFSM/MMAttackFSM";
 import { MMGroundFSM } from "../FSM/PlayerFSM/MMGroundFSM";
 import { MMKnockbackFSM } from "../FSM/PlayerFSM/MMKnockbackFSM";
-import { MMNothingFSM } from "../FSM/PlayerFSM/MMNothingFSM";
 import { IH } from "../IH/IH";
 import { LevelScene } from "../scenes/LevelScene";
 import { Entity, FacingEnum } from "./Entity";
@@ -19,18 +18,15 @@ export class MM extends Entity {
     attackSprite:Phaser.GameObjects.Sprite;
     PointerAngleDeg:number;
 
-    AddAnimationSuffix:boolean = true;
-    AnimationSuffix:string = '_Down';
-    
     private attackCooldown:number = 0;
     constructor(scene:LevelScene, ih:IH) {
         super(scene);
         // this.hp = this.maxhp = 10;
         this.ih = ih;
         this.sprite.setName('Mouse');
-        this.PlayAnimation('Stand_Down');
+        this.PlayAnimation('Stand');
         // this.sprite.setGravityY(100);
-        this.fsm.addModule('nothing', new MMNothingFSM(this, this.fsm));
+        this.fsm.addModule('attack', new MMAttackFSM(this, this.fsm));
         this.fsm.addModule('move', new MMGroundFSM(this, this.fsm));
         this.fsm.addModule('knockback', new MMKnockbackFSM(this, this.fsm));
         this.fsm.changeModule('move');
@@ -41,7 +37,6 @@ export class MM extends Entity {
 
         this.scene.Players.add(this.sprite);
 
-        this.sprite.on(EntityMessages.TRY_ATTACK, this.TryAttack, this);
         this.on(EntityMessages.POINTER_POS, (p:{x:number, y:number})=> {this.PointerAngleDeg = Phaser.Math.RadToDeg(Phaser.Math.Angle.BetweenPoints(this.shadow, p));
             this.scene.events.emit('debug', `Pointer angle: ${this.PointerAngleDeg}`, true);
         }, this);
@@ -99,12 +94,17 @@ export class MM extends Entity {
         this.attackSprite.setPosition(this.shadow.x, this.shadow.y);
         this.attackSprite.setAngle(Phaser.Math.RadToDeg(angle));
         this.attackSprite.scaleX = .01;
+        this.attackSprite.setVisible(true);
         this.scene.tweens.add({
             targets: this.attackSprite,
             scaleX: 1,
             duration: 100,
-            // onComplete: ()=>{this.attackSprite.setScale(0);}
+            // onComplete: ()=>{this.attackSprite.setVisible(false);}
         });
+        this.shadow.setVelocity(0,0);
+        this.shadow.setAcceleration(0,0);
+        this.shadow.setAcceleration(0,0);
+        this.changeFSM('attack');
         
         
         // this.scene.BA.LaunchAttack(o, AttackTypes.StickSwing);
@@ -118,12 +118,14 @@ export class MM extends Entity {
 
     Update(time:number, dt:number) {
         super.Update(time, dt);
-        this.sprite.flipX = this.Facing == FacingEnum.Left;
         // this.scene.events.emit('debug', `FSM: ${this.fsm.currentModuleName}`);
     }
 
     static CreateAnimations(scene:Phaser.Scene) {
         scene.anims.create({ key: 'Mouse_Stand_Down', frameRate: 6, frames: scene.anims.generateFrameNames('atlas', { prefix: 'Mouse_Stand_Down_', end: 3}), repeat: -1});
+        scene.anims.create({ key: 'Mouse_Stand_Up', frameRate: 6, frames: scene.anims.generateFrameNames('atlas', { prefix: 'Mouse_Stand_Up_', end: 3}), repeat: -1});
+        scene.anims.create({ key: 'Mouse_Attack_Down', frameRate: 30, frames: scene.anims.generateFrameNames('atlas', { prefix: 'Mouse_Attack_Down_', end: 3}), repeat: 0});
+        scene.anims.create({ key: 'Mouse_Attack_Up', frameRate: 30, frames: scene.anims.generateFrameNames('atlas', { prefix: 'Mouse_Attack_Up_', end: 3}), repeat: 0});
         
     }
 

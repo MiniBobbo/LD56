@@ -24,6 +24,10 @@ export class Entity {
     ExternalAccelerationApplied:boolean;
     Facing:FacingEnum= FacingEnum.Right;
     
+    AddAnimationSuffix:boolean = true;
+    AnimationSuffix:string = '_Down';
+    
+
     
     //How high off the ground is the bottom of this entity?
     Z:number = 0;
@@ -83,6 +87,10 @@ export class Entity {
 
     emit(event:string, ...args:any[]) {
         this.sprite.emit(event, ...args );
+    }
+
+    removeListener(event:string, callback:Function, context:any) {
+        this.sprite.removeListener(event, callback, context);
     }
 
     Resume() {
@@ -150,7 +158,10 @@ export class Entity {
     }
 
     PlayAnimation(anim:string, ignoreIfPlaying:boolean = true) {
+        
         let combinedAnim = `${this.sprite.name}_${anim}`;
+        if(this.AddAnimationSuffix)
+            combinedAnim += this.AnimationSuffix;
         if(ignoreIfPlaying && combinedAnim == this.lastAnim)
             return;
         this.sprite.anims.play(combinedAnim, ignoreIfPlaying);

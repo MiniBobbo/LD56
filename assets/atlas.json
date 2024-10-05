@@ -4,11 +4,53 @@
 			"image": "atlas.png",
 			"format": "RGBA8888",
 			"size": {
-				"w": 54,
-				"h": 52
+				"w": 195,
+				"h": 26
 			},
 			"scale": 1,
 			"frames": [
+				{
+					"filename": "Mouse_Attack_Down_0",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 30,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 3,
+						"w": 25,
+						"h": 24
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 25,
+						"h": 24
+					}
+				},
+				{
+					"filename": "Mouse_Attack_Up_0",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 30,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 3,
+						"w": 25,
+						"h": 24
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 25,
+						"h": 24
+					}
+				},
 				{
 					"filename": "Mouse_Stand_Down_0",
 					"rotated": false,
@@ -24,7 +66,7 @@
 						"h": 24
 					},
 					"frame": {
-						"x": 1,
+						"x": 28,
 						"y": 1,
 						"w": 25,
 						"h": 24
@@ -45,7 +87,7 @@
 						"h": 24
 					},
 					"frame": {
-						"x": 1,
+						"x": 28,
 						"y": 1,
 						"w": 25,
 						"h": 24
@@ -66,31 +108,52 @@
 						"h": 24
 					},
 					"frame": {
-						"x": 1,
+						"x": 28,
 						"y": 1,
 						"w": 25,
 						"h": 24
 					}
 				},
 				{
-					"filename": "Stick_0",
+					"filename": "Mouse_Attack_Down_1",
 					"rotated": false,
 					"trimmed": true,
 					"sourceSize": {
-						"w": 56,
-						"h": 56
+						"w": 30,
+						"h": 30
 					},
 					"spriteSourceSize": {
-						"x": 20,
-						"y": 23,
-						"w": 36,
-						"h": 11
+						"x": 5,
+						"y": 3,
+						"w": 22,
+						"h": 24
 					},
 					"frame": {
-						"x": 1,
-						"y": 27,
-						"w": 36,
-						"h": 11
+						"x": 55,
+						"y": 1,
+						"w": 22,
+						"h": 24
+					}
+				},
+				{
+					"filename": "Mouse_Attack_Up_1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 30,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 5,
+						"y": 3,
+						"w": 22,
+						"h": 24
+					},
+					"frame": {
+						"x": 55,
+						"y": 1,
+						"w": 22,
+						"h": 24
 					}
 				},
 				{
@@ -108,10 +171,220 @@
 						"h": 23
 					},
 					"frame": {
-						"x": 28,
+						"x": 79,
 						"y": 1,
 						"w": 25,
 						"h": 23
+					}
+				},
+				{
+					"filename": "Mouse_Attack_Down_2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 30,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 5,
+						"w": 23,
+						"h": 22
+					},
+					"frame": {
+						"x": 106,
+						"y": 1,
+						"w": 23,
+						"h": 22
+					}
+				},
+				{
+					"filename": "Mouse_Attack_Up_2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 30,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 5,
+						"w": 23,
+						"h": 22
+					},
+					"frame": {
+						"x": 106,
+						"y": 1,
+						"w": 23,
+						"h": 22
+					}
+				},
+				{
+					"filename": "Mouse_Stand_Up_0",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 30,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 5,
+						"w": 23,
+						"h": 22
+					},
+					"frame": {
+						"x": 106,
+						"y": 1,
+						"w": 23,
+						"h": 22
+					}
+				},
+				{
+					"filename": "Mouse_Stand_Up_1",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 30,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 5,
+						"w": 23,
+						"h": 22
+					},
+					"frame": {
+						"x": 106,
+						"y": 1,
+						"w": 23,
+						"h": 22
+					}
+				},
+				{
+					"filename": "Mouse_Stand_Up_2",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 30,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 5,
+						"w": 23,
+						"h": 22
+					},
+					"frame": {
+						"x": 106,
+						"y": 1,
+						"w": 23,
+						"h": 22
+					}
+				},
+				{
+					"filename": "Mouse_Stand_Up_3",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 30,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 5,
+						"w": 23,
+						"h": 22
+					},
+					"frame": {
+						"x": 106,
+						"y": 1,
+						"w": 23,
+						"h": 22
+					}
+				},
+				{
+					"filename": "Mouse_Attack_Down_3",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 30,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 5,
+						"w": 23,
+						"h": 22
+					},
+					"frame": {
+						"x": 131,
+						"y": 1,
+						"w": 23,
+						"h": 22
+					}
+				},
+				{
+					"filename": "Mouse_Attack_Up_3",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 30,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 3,
+						"y": 5,
+						"w": 23,
+						"h": 22
+					},
+					"frame": {
+						"x": 131,
+						"y": 1,
+						"w": 23,
+						"h": 22
+					}
+				},
+				{
+					"filename": "Stick_0",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 56,
+						"h": 56
+					},
+					"spriteSourceSize": {
+						"x": 20,
+						"y": 23,
+						"w": 36,
+						"h": 11
+					},
+					"frame": {
+						"x": 156,
+						"y": 1,
+						"w": 36,
+						"h": 11
+					}
+				},
+				{
+					"filename": "Mouse_Stick_0",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 30,
+						"h": 30
+					},
+					"spriteSourceSize": {
+						"x": 2,
+						"y": 9,
+						"w": 28,
+						"h": 11
+					},
+					"frame": {
+						"x": 156,
+						"y": 14,
+						"w": 28,
+						"h": 11
 					}
 				},
 				{
@@ -129,8 +402,8 @@
 						"h": 8
 					},
 					"frame": {
-						"x": 39,
-						"y": 26,
+						"x": 186,
+						"y": 14,
 						"w": 8,
 						"h": 8
 					}
@@ -150,115 +423,10 @@
 						"h": 8
 					},
 					"frame": {
-						"x": 39,
-						"y": 26,
+						"x": 186,
+						"y": 14,
 						"w": 8,
 						"h": 8
-					}
-				},
-				{
-					"filename": "Mouse_Stand_Up_0",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 30,
-						"h": 30
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 3,
-						"h": 3
-					},
-					"frame": {
-						"x": 39,
-						"y": 36,
-						"w": 3,
-						"h": 3
-					}
-				},
-				{
-					"filename": "Mouse_Stand_Up_1",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 30,
-						"h": 30
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 3,
-						"h": 3
-					},
-					"frame": {
-						"x": 39,
-						"y": 36,
-						"w": 3,
-						"h": 3
-					}
-				},
-				{
-					"filename": "Mouse_Stand_Up_2",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 30,
-						"h": 30
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 3,
-						"h": 3
-					},
-					"frame": {
-						"x": 39,
-						"y": 36,
-						"w": 3,
-						"h": 3
-					}
-				},
-				{
-					"filename": "Mouse_Stand_Up_3",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 30,
-						"h": 30
-					},
-					"spriteSourceSize": {
-						"x": 0,
-						"y": 0,
-						"w": 3,
-						"h": 3
-					},
-					"frame": {
-						"x": 39,
-						"y": 36,
-						"w": 3,
-						"h": 3
-					}
-				},
-				{
-					"filename": "Mouse_Stick_0",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 30,
-						"h": 30
-					},
-					"spriteSourceSize": {
-						"x": 2,
-						"y": 9,
-						"w": 28,
-						"h": 11
-					},
-					"frame": {
-						"x": 1,
-						"y": 40,
-						"w": 28,
-						"h": 11
 					}
 				}
 			]
@@ -267,6 +435,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:359a8934f422eba1b2f1aa01192f97db:9c3d7eab1cb211584b66b7d97db51daf:cbce6b53f0f49e0bf15173c25c41f876$"
+		"smartupdate": "$TexturePacker:SmartUpdate:084dd2b14c0a6353f267f69c9a865e08:351aa4a66e7f3cc619a9462642cc204c:cbce6b53f0f49e0bf15173c25c41f876$"
 	}
 }

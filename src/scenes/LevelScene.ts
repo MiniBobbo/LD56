@@ -281,19 +281,19 @@ export class LevelScene extends Phaser.Scene {
         switch (direction) {
             case 'e':
                 sx += cam.width;
-                px += 5;
+                px += 15;
                 break;
             case 'w':
                 sx -= cam.width;
-                px -= 5;
+                px -= 15;
                 break;
             case 'n':
                 sy -= cam.height;
-                py -= 5;
+                py -= 15;
                 break;
             case 's':
                 sy += cam.height;
-                py += 5;
+                py += 15;
                 break;
         
             default:
