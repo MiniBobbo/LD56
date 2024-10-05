@@ -30,28 +30,6 @@ export class AttackManager {
         a.lifetime = 5000;
         a.FirstFrame = true;
         switch (type) {
-            case AttackTypes.StickSwing:
-                a.alive = true;
-                a.damage = 1;
-                a.lifetime = 200;
-                a.s.setFrame('StickAttack_0')
-                a.s.setCircle(8)
-                // .setOrigin(.5,.5)
-                // .setFrame('StickAttack_0')
-                .setVisible(false)
-                // .setOffset(0,0)
-                .setOrigin(.5,.5)
-
-                // .setRotation(origin.angle)
-                
-                // .setOffset(.5,.5)
-                .enableBody()
-                .setPosition(origin.x, origin.y)
-                // .enableBody(true, origin.x - a.s.body.width/2, origin.y - a.s.body.height/2, true,true)
-                .setVelocity(0,0);
-                this.scene.events.emit('debug', `Attack position: ${a.s.x}, ${a.s.y}`); 
-        
-            break;
             case AttackTypes.Stick:
                 let vel = new Phaser.Math.Vector2(C.STICK_VELOCITY, 0);
                 vel.rotate(origin.angle);

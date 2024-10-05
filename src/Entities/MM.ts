@@ -87,6 +87,11 @@ export class MM extends Entity {
         
         this.scene.debugGraphics.strokeCircle(o.x, o.y, 8);
 
+        let targets = this.scene.physics.overlapCirc(o.x, o.y, 8);
+        targets.forEach(element => {
+            element.gameObject.emit(EntityMessages.HIT_BY_STICK);
+        });
+            
         this.attackSprite.setPosition(this.shadow.x, this.shadow.y);
         this.attackSprite.setAngle(Phaser.Math.RadToDeg(angle));
         this.attackSprite.scaleX = .01;

@@ -61,20 +61,6 @@ export class SetupMapHelper {
                         let pillbug = new Enemy(gs);
                         pillbug.shadow.setPosition(worldposition.x, worldposition.y);
                 break;
-                case 'Enemy':
-                    let type = element.fieldInstances[0].__value as EnemyTypes;
-                    switch (type) {
-                        case EnemyTypes.Test:
-                            let e = new BasicBaddie(gs);
-                            e.sprite.setPosition(worldposition.x, worldposition.y);
-                            mo.mapEntities.push(e);
-                            break;
-                    
-
-                        default:
-                            break;
-                    }
-                break;
                 default:
                     break;
             }

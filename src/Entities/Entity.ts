@@ -191,6 +191,7 @@ export class Entity {
     Dead() {
         // this.sprite.body.enable = false;
         this.sprite.setVisible(false);
+        this.shadow.disableBody(true,true);
         this.fsm.changeModule('nothing');
     }
 

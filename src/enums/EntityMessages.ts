@@ -16,5 +16,6 @@ export enum EntityMessages {
     BOUNCE = 'bounce',
     PLAYER_DEAD = 'playerdead',
     POINTER_POS = "POINTER_POS",
+    HIT_BY_STICK = 'hitbystick',
 
 }

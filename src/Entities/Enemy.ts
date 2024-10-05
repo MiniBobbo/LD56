@@ -7,6 +7,8 @@ import { Entity, FacingEnum } from "./Entity";
 
 export class Enemy extends Entity {
     CollideDamage:number = 1;
+
+    StickHitThisFrame:boolean = false;
     
     constructor(scene:LevelScene) {
         super(scene);
@@ -24,6 +26,13 @@ export class Enemy extends Entity {
         // this.Facing = FacingEnum.Left;
 
         this.shadow.on(EntityMessages.OVERLAP_PLAYER, this.OverlapPlayer, this);
+        this.shadow.on(EntityMessages.HIT_BY_STICK, this.HitByStick, this);
+        this.PlayAnimation('Stand');
+    }
+
+    Update(time: number, dt: number): void {
+        super.Update(time, dt);
+        this.StickHitThisFrame = false;
     }
 
     HitByAttack(a:AttackInstance): void {
@@ -42,10 +51,14 @@ export class Enemy extends Entity {
         this.Flash(C.SHORT_FLASH);
         this.hp -= damage;
         this.hp = Phaser.Math.Clamp(this.hp, 0, this.maxhp);
-        this.sprite.emit(EntityMessages.CHANGE_HP, this.hp, this.maxhp);
+        this.shadow.emit(EntityMessages.CHANGE_HP, this.hp, this.maxhp);
         if(this.hp == 0) {
-            this.sprite.emit('dead');
+            this.shadow.emit('dead');
         }
+    }
+
+    HitByStick() {
+        this.shadow.emit(EntityMessages.TAKE_DAMAGE, 1);
     }
 
 }

@@ -1,4 +1,5 @@
 import { C } from "../C";
+import { Pillbug } from "../Entities/Enemies/Pillbug";
 import { MM } from "../Entities/MM";
 import { GameData } from "../GameData";
 import { GamepadButtons, IH, IHVI } from "../IH/IH";
@@ -82,6 +83,7 @@ export class Preload extends Phaser.Scene {
         C.gd = new GameData();
 
         MM.CreateAnimations(this);
+        Pillbug.CreateAnimations(this);
 
         IH.AddVirtualInput(IHVI.Up);
         IH.AddVirtualInput(IHVI.Down);
