@@ -25,9 +25,7 @@ export class SetupMapHelper {
         //         l.setDepth(200);
         // });
 
-        maps.collideLayer.setCollision([1,3]);
-
-        gs.lights.enable();
+        maps.collideLayer.setCollision([2]);
 
         this.CreateEntities(gs, maps, mo);
         // this.CreatePhysics(gs,maps);
@@ -58,6 +56,10 @@ export class SetupMapHelper {
                         let t = gs.add.bitmapText(worldposition.x, worldposition.y, '8px', message.__value as string)
                         .setMaxWidth(element.width).setDepth(150).setCenterAlign();
                         mo.mapGameObjects.push(t);
+                break;
+                case 'Pillbug':
+                        let pillbug = new Enemy(gs);
+                        pillbug.shadow.setPosition(worldposition.x, worldposition.y);
                 break;
                 case 'Enemy':
                     let type = element.fieldInstances[0].__value as EnemyTypes;

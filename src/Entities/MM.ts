@@ -23,7 +23,7 @@ export class MM extends Entity {
         super(scene);
         // this.hp = this.maxhp = 10;
         this.ih = ih;
-        this.sprite.setName('Mouse');
+        this.setName('Mouse');
         this.PlayAnimation('Stand');
         // this.sprite.setGravityY(100);
         this.fsm.addModule('attack', new MMAttackFSM(this, this.fsm));
@@ -33,19 +33,15 @@ export class MM extends Entity {
 
         this.attackSprite = scene.add.sprite(0,0, 'atlas', 'Stick_0');
 
-        this.Facing = FacingEnum.Right;
+        this.scene.Players.add(this.shadow);
 
-        this.scene.Players.add(this.sprite);
+        
 
         this.on(EntityMessages.POINTER_POS, (p:{x:number, y:number})=> {this.PointerAngleDeg = Phaser.Math.RadToDeg(Phaser.Math.Angle.BetweenPoints(this.shadow, p));
             this.scene.events.emit('debug', `Pointer angle: ${this.PointerAngleDeg}`, true);
         }, this);
-        // this.scene.Midground.add(this.sprite);
-        // this.scene.events.on('update', this.update, this);
 
-        // if(C.checkFlag('light')) {
-        //     this.TurnOnLight();
-        // }
+        this.emit(EntityMessages.CHANGE_HP, 5,5);
     }
 
 
@@ -54,12 +50,12 @@ export class MM extends Entity {
         this.sprite.emit(EntityMessages.TAKE_DAMAGE, a.damage);
     }
 
-    Damage(damage: number, type:AttackTypes): void {
+    Damage(damage: number, attackLocation:Phaser.Math.Vector2): void {
         if(this.flashing)
             return;
-        this.fsm.changeModule('knockback');    
+        this.fsm.changeModule('knockback', attackLocation);    
         this.scene.cameras.main.shake(100,.02);    
-        super.Damage(damage, type);
+        super.Damage(damage, attackLocation);
         if(this.hp <=0) {
             // this.gs.physics.pause();
             this.gs.events.emit(EntityMessages.PLAYER_DEAD);

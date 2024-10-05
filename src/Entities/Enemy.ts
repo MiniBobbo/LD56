@@ -11,20 +11,19 @@ export class Enemy extends Entity {
     constructor(scene:LevelScene) {
         super(scene);
         this.sprite.setSize(24, 24);
-        this.sprite.setName('BasicBaddie');
+        this.setName('Pillbug');
         this.hp = 5;
         this.maxhp = 5;
-        this.scene.CollideMap.add(this.sprite);
-        this.scene.Enemies.add(this.sprite);
+        this.scene.CollideMap.add(this.shadow);
+        this.scene.Enemies.add(this.shadow);
+        this.scene.Background.add(this.shadow);
         this.scene.Midground.add(this.sprite);
 
         
 
         // this.Facing = FacingEnum.Left;
 
-        this.sprite.setData(this);
-
-        this.sprite.on(EntityMessages.OVERLAP_PLAYER, this.OverlapPlayer, this);
+        this.shadow.on(EntityMessages.OVERLAP_PLAYER, this.OverlapPlayer, this);
     }
 
     HitByAttack(a:AttackInstance): void {
@@ -34,10 +33,10 @@ export class Enemy extends Entity {
 
     OverlapPlayer() {
         if (!this.flashing)
-            this.scene.mm.sprite.emit(EntityMessages.TAKE_DAMAGE, this.CollideDamage);
+            this.scene.mm.emit(EntityMessages.TAKE_DAMAGE, this.CollideDamage, this.shadow.getCenter());
     }
 
-    Damage(damage:number, type:AttackTypes): void {
+    Damage(damage:number, attackLocation:Phaser.Math.Vector2): void {
         if(this.flashing)
             return;
         this.Flash(C.SHORT_FLASH);

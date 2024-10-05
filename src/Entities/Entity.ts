@@ -16,8 +16,8 @@ export class Entity {
     fsm:FSM;
     
     //Stats
-    hp:number = 2;
-    maxhp:number = 2;
+    hp:number = 3;
+    maxhp:number = 3;
     flashing:boolean = false;
     flashingRemaining:number = 0;
     ExternalAcceleration:Phaser.Math.Vector2;
@@ -46,25 +46,26 @@ export class Entity {
         this.sprite = scene.add.sprite(0,0, 'atlas')
         // this.sprite.setVisible(false);
         this.shadow = scene.physics.add.image(0,0,'shadow').setCircle(8).setAlpha(.5);
+        
         this.scene.Background.add(this.shadow);
 
         this.sprite.name = '';
-        this.sprite.setData(this);
+        this.sprite.setData('Entity', this);
+        this.shadow.setData('Entity', this);
         this.sprite.setDepth(50);
         scene.Midground.add(this.sprite);
         this.fsm = new FSM(this);
 
 
-        this.sprite.on(EntityMessages.TAKE_DAMAGE, this.Damage, this);
-        this.sprite.on('stun', this.Stun, this);
-        this.sprite.on('dead', this.Dead, this);
-        this.sprite.on(EntityMessages.HIT_BY_ATTACK, this.HitByAttack, this);
-        this.sprite.on(EntityMessages.ACCELERATE, this.AddExternalAcceleration, this);
+        this.shadow.on(EntityMessages.TAKE_DAMAGE, this.Damage, this);
+        this.shadow.on('stun', this.Stun, this);
+        this.shadow.on('dead', this.Dead, this);
+        this.shadow.on(EntityMessages.HIT_BY_ATTACK, this.HitByAttack, this);
+        this.shadow.on(EntityMessages.ACCELERATE, this.AddExternalAcceleration, this);
 
         // this.scene.events.on('update',this.Update, this)
         this.scene.events.on('travel',() => {this.fsm.clearModule();}, this);
         this.scene.events.on('preupdate', this.Update, this);
-        this.on(EntityMessages.POINTER_POS, (x:number, y:number) => {}, this);
 
 
 
@@ -81,16 +82,22 @@ export class Entity {
         })
     }
 
+    setName(name:string) {
+        this.sprite.setName(name);
+        this.shadow.setName(name + '_shadow');
+    }
+
+
     on(event:string, callback:Function, context:any) {
-        this.sprite.on(event, callback, context);
+        this.shadow.on(event, callback, context);
     }
 
     emit(event:string, ...args:any[]) {
-        this.sprite.emit(event, ...args );
+        this.shadow.emit(event, ...args );
     }
 
     removeListener(event:string, callback:Function, context:any) {
-        this.sprite.removeListener(event, callback, context);
+        this.shadow.removeListener(event, callback, context);
     }
 
     Resume() {
@@ -169,7 +176,7 @@ export class Entity {
         this.lastAnim = combinedAnim;
     }
 
-    Damage(damage:number, type:AttackTypes): void {
+    Damage(damage:number, attackLocation:Phaser.Math.Vector2): void {
         if(this.flashing)
             return;
         this.Flash(C.LONG_FLASH);

@@ -58,6 +58,7 @@ export class LevelScene extends Phaser.Scene {
     debug:Phaser.GameObjects.Text;
     PointerOffset: { x: number; y: number; };
     Pointer: Phaser.GameObjects.Image;
+    currentMapCollider: Phaser.Physics.Arcade.Collider;
 
 
 
@@ -112,25 +113,29 @@ export class LevelScene extends Phaser.Scene {
         this.debug = this.add.text(0,0,"").setFontSize(12).setDepth(1000).setScrollFactor(0,0);
         this.debugGraphics = this.add.graphics().setDepth(1001);
 
-        let m = this.reader.CreateMap(C.gd.CurrentLevel, 'mapts');
-        this.currentMap = m.level.identifier;
-        this.Map.ExploreLevel(m.level.identifier);
-        m.collideLayer.setCollision([1, 2, 3, 4, 5, 6]);
-        this.currentMapPack = m;
+        let level = this.reader.ldtk.levels.find((l: any) => l.identifier === C.gd.CurrentLevel);
+        this.CreateNextMap(level);
+        this.EndScreenTransition();
+        let m = this.currentMapPack;
+        // let m = this.reader.CreateMap(C.gd.CurrentLevel, 'mapts');
+        // this.currentMap = m.level.identifier;
+        // this.Map.ExploreLevel(m.level.identifier);
+        // m.collideLayer.setCollision([2, 3, 4, 5, 6]);
+        // this.currentMapPack = m;
 
-        this.currentMapPack.displayLayers.forEach(element => {
-            if(element.name == 'Fg')
-                this.Foreground.add(element);
-            if(element.name == 'Decor')
-                this.Background.add(element);
-            if(element.name == 'Mg')
-                this.Midground.add(element);
+        // this.currentMapPack.displayLayers.forEach(element => {
+        //     if(element.name == 'Fg')
+        //         this.Foreground.add(element);
+        //     if(element.name == 'Floor')
+        //         this.Background.add(element);
+        //     if(element.name == 'Mg')
+        //         this.Midground.add(element);
             
 
-        });
+        // });
 
-        m.displayLayers.forEach(element => {
-        });
+        // m.displayLayers.forEach(element => {
+        // });
 
         this.mm = new MM(this, this.ih)
         this.BA = new AttackManager(this);
@@ -152,10 +157,7 @@ export class LevelScene extends Phaser.Scene {
         if(m.height == 140)
             by = 135;
         this.cameras.main.setBounds(m.worldX,m.worldY,m.width, by);
-        // this.cameras.main.startFollow(this.mm.sprite);
-
-        SetupMapHelper.CreateEntities(this, this.currentMapPack, this.CurrentMapObjects);
-
+        this.cameras.main.startFollow(this.mm.sprite);
 
         //@ts-ignore
         this.physics.add.overlap(this.CollideEnemy, this.Enemies, (a:Phaser.Physics.Arcade.Sprite, e:Phaser.Physics.Arcade.Sprite)=>{
@@ -169,19 +171,12 @@ export class LevelScene extends Phaser.Scene {
         //@ts-ignore
         this.physics.add.overlap(this.Enemies, this.Players, (a:Phaser.Physics.Arcade.Sprite, e:Phaser.Physics.Arcade.Sprite)=>{
             a.emit(EntityMessages.OVERLAP_PLAYER);
+            e.emit(EntityMessages.OVERLAP_PLAYER);
         });
         //@ts-ignore
         this.physics.add.overlap(this.Powerups, this.Players, (powerup:Phaser.Physics.Arcade.Sprite, player:Phaser.Physics.Arcade.Sprite)=>{
             powerup.emit(EntityMessages.OVERLAP_PLAYER);
         });
-
-        //@ts-ignore
-        this.physics.add.overlap(this.CollideEnemy, this.Blocks, (a:Phaser.Physics.Arcade.Sprite, e:Phaser.Physics.Arcade.Sprite)=>{
-            e.emit(EntityMessages.HIT_BLOCK);
-            a.emit(AttackMessages.COLLIDE_WALL, a.getData('AttackInstance') as AttackInstance);
-        });
-
-
 
         //Add gui stuff
 
@@ -194,15 +189,6 @@ export class LevelScene extends Phaser.Scene {
 
     }
     
-    CreateEnemy() {
-        let lb = new Lifebar(this).SetPosition(450,3);
-        // let lb = new Lifebar(this).SetPosition(368,3);
-
-        // let e = this.currentMapPack.entityLayers.entityInstances.find(e=>e.__identifier == 'Enemy');
-        // let newenemy = SetupMapHelper.CreateEnemy(this, e);
-        // lb.LinkEntity(newenemy);
-
-    }
 
 
     update(time:number, dt:number) {
@@ -348,7 +334,7 @@ export class LevelScene extends Phaser.Scene {
         // if(this.currentMapCollider != null)
         //     this.currentMapCollider.destroy();
         this.physics.world.setBounds(this.nextMapPack.worldX, this.nextMapPack.worldY, this.nextMapPack.width, this.nextMapPack.height);
-        this.nextMapPack.collideLayer.setCollision([1,2,3,4,5]);
+        this.nextMapPack.collideLayer.setCollision([2]);
         this.currentMap = nLevel.identifier;
         C.gd.CurrentLevel = nLevel.identifier;
         this.nextMapPack.displayLayers.forEach(element => {
@@ -364,20 +350,22 @@ export class LevelScene extends Phaser.Scene {
 
         });
 
+        
         this.NextMapObjects = new MapObjects();
         SetupMapHelper.CreateEntities(this, this.nextMapPack, this.NextMapObjects);
         // this.IntMaps.add(this.nextMapPack.collideLayer);
         let level = this.reader.ldtk.levels.find((l: any) => l.identifier === nLevel.identifier);
 
-        // this.currentMapCollider = this.physics.add.collider(this.CollideMap, this.nextMapPack.collideLayer);
+        this.currentMapCollider = this.physics.add.collider(this.CollideMap, this.nextMapPack.collideLayer);
 
         }
 
     EndScreenTransition() {
-        this.IntMaps.remove(this.currentMapPack.collideLayer);
-        this.currentMapPack.Destroy();
+        if(this.currentMapPack != null) {
+            this.IntMaps.remove(this.currentMapPack.collideLayer);
+            this.currentMapPack.Destroy();
+        }
         this.currentMapPack = this.nextMapPack;
-
         this.CurrentMapObjects.Destroy();
         this.CurrentMapObjects = this.NextMapObjects;
         this.LevelTransition = false;

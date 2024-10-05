@@ -18,10 +18,12 @@ export class C {
     static MOUSE_SENSITIVITY:number = .8;
 
 
-    static KNOCKBACK:{x:number, y:number} = {x:30, y:-50};
+    static KNOCKBACK:number = 50;
 
     static SCREEN_TRANSITION_TIME:number = 500;
     static STICK_VELOCITY:number = 200;
+
+    static KNOCKBACK_DURATION:number = 500;
 
     static checkFlag(flag:string):boolean {
         //@ts-ignore
