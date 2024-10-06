@@ -114,25 +114,6 @@ export class LevelScene extends Phaser.Scene {
         this.CreateNextMap(level);
         this.EndScreenTransition();
         let m = this.currentMapPack;
-        // let m = this.reader.CreateMap(C.gd.CurrentLevel, 'mapts');
-        // this.currentMap = m.level.identifier;
-        // this.Map.ExploreLevel(m.level.identifier);
-        // m.collideLayer.setCollision([2, 3, 4, 5, 6]);
-        // this.currentMapPack = m;
-
-        // this.currentMapPack.displayLayers.forEach(element => {
-        //     if(element.name == 'Fg')
-        //         this.Foreground.add(element);
-        //     if(element.name == 'Floor')
-        //         this.Background.add(element);
-        //     if(element.name == 'Mg')
-        //         this.Midground.add(element);
-            
-
-        // });
-
-        // m.displayLayers.forEach(element => {
-        // });
 
         this.mm = new MM(this, this.ih)
         this.BA = new AttackManager(this);
@@ -347,7 +328,7 @@ export class LevelScene extends Phaser.Scene {
         // if(this.currentMapCollider != null)
         //     this.currentMapCollider.destroy();
         this.physics.world.setBounds(this.nextMapPack.worldX, this.nextMapPack.worldY, this.nextMapPack.width, this.nextMapPack.height);
-        this.nextMapPack.collideLayer.setCollision([2, 5]);
+        this.nextMapPack.collideLayer.setCollision([2, 3, 5]);
         this.currentMap = nLevel.identifier;
         C.gd.CurrentLevel = nLevel.identifier;
         this.nextMapPack.displayLayers.forEach(element => {
@@ -355,7 +336,7 @@ export class LevelScene extends Phaser.Scene {
         this.nextMapPack.displayLayers.forEach(element => {
             if(element.name == 'Fg')
                 this.Foreground.add(element);
-            if(element.name == 'MG')
+            if(element.name == 'Mg')
                 this.Midground.add(element);
             if(element.name == 'Floor')
                 this.Background.add(element.setDepth(1));

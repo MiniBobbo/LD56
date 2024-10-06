@@ -10,6 +10,7 @@ import { MapObjects } from "../map/MapObjects";
 import { LevelScene } from "../scenes/LevelScene";
 import { Pillbug } from "../Entities/Enemies/Pillbug";
 import { TravelPoint } from "../Entities/TravelPoint";
+import { Ant } from "../Entities/Enemies/Ant";
 
 export class SetupMapHelper {
     static CurrentCollider:Phaser.Physics.Arcade.Collider;
@@ -62,6 +63,10 @@ export class SetupMapHelper {
                 case 'Pillbug':
                         let pillbug = new Pillbug(gs);
                         pillbug.shadow.setPosition(worldposition.x, worldposition.y);
+                break;
+                case 'Ant':
+                        let ant = new Ant(gs);
+                        ant.shadow.setPosition(worldposition.x, worldposition.y);
                 break;
                 case 'Travel':
                         let travelPoint = new TravelPoint(gs, element, element.fieldInstances[0].__value, element.fieldInstances[1].__value);
