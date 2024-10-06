@@ -9,6 +9,7 @@ export class Bush extends Enemy {
         this.maxhp = 1;
         this.hp = 1;
         this.PlayAnimation('Stand');
+        // this.tile = this.gs.currentMapPack.collideLayer.getTileAtWorldXY(this.shadow.x, this.shadow.y);
         
         
 
@@ -16,6 +17,8 @@ export class Bush extends Enemy {
 
     Dead() {
         this.PlayAnimation('Chopped');
+        this.gs.currentMapPack.collideLayer.putTileAtWorldXY(1, this.shadow.x, this.shadow.y);
+
     }
 
     OverlapPlayer(): void {

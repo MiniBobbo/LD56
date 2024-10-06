@@ -110,7 +110,7 @@ export class LevelScene extends Phaser.Scene {
         this.ih = new IH(this);
 
         this.debug = this.add.text(0,0,"").setFontSize(12).setDepth(1000)
-        // .setVisible(false)
+        .setVisible(false)
         .setScrollFactor(0,0);
         this.debugGraphics = this.add.graphics()
         // .setVisible(false)

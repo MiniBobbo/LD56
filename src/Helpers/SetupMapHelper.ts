@@ -75,6 +75,8 @@ export class SetupMapHelper {
                         let bush = new Bush(gs);
                         bush.shadow.setPosition(worldposition.x, worldposition.y);
                         mo.mapEntities.push(bush);
+                        maps.collideLayer.putTileAtWorldXY(5, worldposition.x, worldposition.y);
+
                 break;
                 case 'Travel':
                         let travelPoint = new TravelPoint(gs, element, element.fieldInstances[0].__value, element.fieldInstances[1].__value);
@@ -90,7 +92,7 @@ export class SetupMapHelper {
                         }
                         gs.Midground.add(o);
                         let tile = maps.collideLayer.getTileAtWorldXY(worldposition.x, worldposition.y);
-                        tile.index = 5;
+                        maps.collideLayer.putTileAt(5, tile.x, tile.y);
 
                         // pillbug.shadow.setPosition(worldposition.x, worldposition.y);
                 break;
