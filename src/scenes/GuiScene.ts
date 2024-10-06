@@ -1,3 +1,6 @@
+import { EntityMessages } from "../enums/EntityMessages";
+import { SceneMessages } from "../enums/SceneMessages";
+
 export class GuiScene extends Phaser.Scene {
     cheeses:Phaser.GameObjects.Image[];
     weapon:Phaser.GameObjects.Image;
@@ -32,7 +35,22 @@ export class GuiScene extends Phaser.Scene {
             cellHeight: 20,
             x: 10,
             y: 20
-        })
+        });
+
+
+        this.events.on(EntityMessages.CHANGE_HP, (hp:number, maxhp:number)=> {
+            for(let i = 0; i < this.cheeses.length; i++) {
+                if(i < hp) {
+                    this.cheeses[i].setVisible(true);
+                    this.cheeses[i].setFrame('Icons_1');
+                } else if(i < maxhp) {
+                    this.cheeses[i].setVisible(true);
+                    this.cheeses[i].setFrame('Icons_0');
+                } else {
+                    this.cheeses[i].setVisible(false);
+                }
+            }
+        });
     
     }
 }

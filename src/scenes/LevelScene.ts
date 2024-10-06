@@ -4,15 +4,10 @@ import { C } from "../C";
 import { EffectManager } from "../effects/EffectManager";
 import { Entity, FacingEnum } from "../Entities/Entity";
 import { MM } from "../Entities/MM";
-import { AttackMessages } from "../enums/AttackMessages";
 import { EffectTypes } from "../enums/EffectTypes";
 import { EntityMessages } from "../enums/EntityMessages";
 import { PowerTypes } from "../enums/PowerTypes";
 import { SceneMessages } from "../enums/SceneMessages";
-import { GemBar } from "../gui/GemBar";
-import { Lifebar } from "../gui/Lifebar";
-import { LocationMessage } from "../gui/LocationMessage";
-import { Minimap } from "../gui/Minimap";
 import { SetupMapHelper } from "../Helpers/SetupMapHelper";
 import { IH, IHVI } from "../IH/IH";
 import { LDtkMapPack, LdtkReader, Level } from "../map/LDtkReader";
@@ -37,7 +32,7 @@ export class LevelScene extends Phaser.Scene {
 
     Paused:boolean = false;
 
-    Map:Minimap;
+    // Map:Minimap;
 
     BG:Phaser.GameObjects.TileSprite;
 
@@ -101,7 +96,7 @@ export class LevelScene extends Phaser.Scene {
 
         //Add Emitter
         this.reader = new LdtkReader(this,this.cache.json.get('start'));
-        this.Map = new Minimap(this, this.reader);
+        // this.Map = new Minimap(this, this.reader);
 
         this.cam = this.add.image(0,0,'atlas').setVisible(false);
 
@@ -347,7 +342,7 @@ export class LevelScene extends Phaser.Scene {
 
 
     CreateNextMap(nLevel:Level) {
-        this.Map.ExploreLevel(nLevel.identifier);
+        // this.Map.ExploreLevel(nLevel.identifier);
         this.nextMapPack = this.reader.CreateMap(nLevel.identifier, 'mapts');
         // if(this.currentMapCollider != null)
         //     this.currentMapCollider.destroy();

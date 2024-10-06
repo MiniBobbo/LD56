@@ -69,6 +69,11 @@ export class SetupMapHelper {
                 break;
                 case 'Obstacle':
                         let o = gs.add.image(worldposition.x+10, worldposition.y+10, 'atlas', 'OutdoorObstacles_0').setDepth(worldposition.y).setOrigin(.5,.8);
+                        switch (element.fieldInstances[0].__value) {
+                            case 'Flower':
+                                o.setFrame('OutdoorObstacles_1');
+                            break;
+                        }
                         gs.Midground.add(o);
                         let tile = maps.collideLayer.getTileAtWorldXY(worldposition.x+10, worldposition.y+10);
                         tile.index = 5;

@@ -2059,9 +2059,28 @@
 							"height": 20,
 							"defUid": 78,
 							"px": [80,240],
-							"fieldInstances": [{ "__identifier": "Obstacles", "__type": "LocalEnum.Obstacles", "__value": "Grass", "__tile": null, "defUid": 80, "realEditorValues": [] }],
+							"fieldInstances": [{ "__identifier": "Obstacles", "__type": "LocalEnum.Obstacles", "__value": "Flower", "__tile": null, "defUid": 80, "realEditorValues": [{
+								"id": "V_String",
+								"params": ["Flower"]
+							}] }],
 							"__worldX": 80,
 							"__worldY": 240
+						},
+						{
+							"__identifier": "Obstacle",
+							"__grid": [9,10],
+							"__pivot": [0,0],
+							"__tags": [],
+							"__tile": null,
+							"__smartColor": "#D77643",
+							"iid": "f0b10630-73f0-11ef-aaa4-43e36603353e",
+							"width": 20,
+							"height": 20,
+							"defUid": 78,
+							"px": [180,200],
+							"fieldInstances": [{ "__identifier": "Obstacles", "__type": "LocalEnum.Obstacles", "__value": "Grass", "__tile": null, "defUid": 80, "realEditorValues": [] }],
+							"__worldX": 180,
+							"__worldY": 200
 						}
 					]
 				},
@@ -2156,7 +2175,7 @@
 					"layerDefUid": 40,
 					"pxOffsetX": 0,
 					"pxOffsetY": 0,
-					"visible": true,
+					"visible": false,
 					"optionalRules": [],
 					"intGridCsv": [],
 					"autoLayerTiles": [],
