@@ -110,9 +110,11 @@ export class LevelScene extends Phaser.Scene {
 
         this.ih = new IH(this);
 
-        this.debug = this.add.text(0,0,"").setFontSize(12).setDepth(1000).setScrollFactor(0,0);
-        this.debugGraphics = this.add.graphics().setDepth(1001).setVisible(false);
-
+        this.debug = this.add.text(0,0,"").setFontSize(12).setDepth(1000).setScrollFactor(0,0).setVisible(false);
+        this.debugGraphics = this.add.graphics()
+        // .setVisible(false)
+        .setDepth(5);
+        this.GuiLayer.add(this.debugGraphics);
         let level = this.reader.ldtk.levels.find((l: any) => l.identifier === C.gd.CurrentLevel);
         this.CreateNextMap(level);
         this.EndScreenTransition();

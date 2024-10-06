@@ -75,7 +75,7 @@ export class MM extends Entity {
         if(this.attackCooldown > 0)
             return;
         let angle = Phaser.Math.DegToRad(this.PointerAngleDeg);
-        let position = new Phaser.Math.Vector2(8, 0);
+        let position = new Phaser.Math.Vector2(16, 0);
         position.rotate(angle);
         this.scene.debugGraphics.clear();
 
@@ -84,7 +84,7 @@ export class MM extends Entity {
         // this.scene.BA.LaunchAttack(o, AttackTypes.StickSwing);
 
         // let o = {x:this.shadow.body.x + position.x, y:this.shadow.body.y + position.y, angle:angle};
-        position = new Phaser.Math.Vector2(20, 0);
+        position = new Phaser.Math.Vector2(32, 0);
         position.rotate(angle);
         o = {x:this.shadow.body.center.x + position.x, y:this.shadow.body.center.y + position.y, angle:angle};
         

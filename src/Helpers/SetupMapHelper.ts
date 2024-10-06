@@ -8,6 +8,7 @@ import { PowerTypes } from "../enums/PowerTypes";
 import { EntityInstance, LDtkMapPack } from "../map/LDtkReader";
 import { MapObjects } from "../map/MapObjects";
 import { LevelScene } from "../scenes/LevelScene";
+import { Pillbug } from "../Entities/Enemies/Pillbug";
 
 export class SetupMapHelper {
     static CurrentCollider:Phaser.Physics.Arcade.Collider;
@@ -58,7 +59,7 @@ export class SetupMapHelper {
                         mo.mapGameObjects.push(t);
                 break;
                 case 'Pillbug':
-                        let pillbug = new Enemy(gs);
+                        let pillbug = new Pillbug(gs);
                         pillbug.shadow.setPosition(worldposition.x, worldposition.y);
                 break;
                 default:

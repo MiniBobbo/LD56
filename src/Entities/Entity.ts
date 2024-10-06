@@ -26,6 +26,8 @@ export class Entity {
     
     AddAnimationSuffix:boolean = true;
     AnimationSuffix:string = '_Down';
+
+    isDead:boolean = false;
     
 
     
@@ -193,6 +195,7 @@ export class Entity {
         this.sprite.setVisible(false);
         this.shadow.disableBody(true,true);
         this.fsm.changeModule('nothing');
+        this.isDead = true;
     }
 
     Flash(length:number = 1000) {

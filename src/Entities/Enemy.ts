@@ -60,6 +60,8 @@ export class Enemy extends Entity {
     }
 
     HitByStick() {
+        if(this.isDead)
+            return;
         this.shadow.emit(EntityMessages.TAKE_DAMAGE, 1);
     }
 
