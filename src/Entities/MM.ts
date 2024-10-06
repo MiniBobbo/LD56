@@ -1,3 +1,4 @@
+import { GameObjects } from "phaser";
 import { AttackInstance } from "../attacks/AttackInstance";
 import { C } from "../C";
 import { AttackTypes } from "../enums/AttackTypes";
@@ -11,6 +12,7 @@ import { MMKnockbackFSM } from "../FSM/PlayerFSM/MMKnockbackFSM";
 import { IH } from "../IH/IH";
 import { LevelScene } from "../scenes/LevelScene";
 import { Entity, FacingEnum } from "./Entity";
+import { MMPickupFSM } from "../FSM/PlayerFSM/MMPickupFSM";
 
 export class MM extends Entity {
     attacking:boolean;
@@ -20,6 +22,8 @@ export class MM extends Entity {
 
     attackSprite:Phaser.GameObjects.Sprite;
     PointerAngleDeg:number;
+
+    HasStick:boolean = true;
 
     private attackCooldown:number = 0;
     constructor(scene:LevelScene, ih:IH) {
@@ -32,10 +36,12 @@ export class MM extends Entity {
         this.fsm.addModule('attack', new MMAttackFSM(this, this.fsm));
         this.fsm.addModule('end', new MMEndFSM(this, this.fsm));
         this.fsm.addModule('move', new MMGroundFSM(this, this.fsm));
+        this.fsm.addModule('pickup', new MMPickupFSM(this, this.fsm));
         this.fsm.addModule('knockback', new MMKnockbackFSM(this, this.fsm));
         this.fsm.changeModule('move');
 
         this.attackSprite = scene.add.sprite(0,0, 'atlas', 'Stick_0');
+        this.gs.GuiLayer.add(this.attackSprite);
 
         this.scene.Players.add(this.shadow);
 
@@ -68,21 +74,44 @@ export class MM extends Entity {
         }
     }
 
-    changeFSM(nextFSM:string) {
+    changeFSM(nextFSM:string, args?:any[]) {
         // console.log(`Changing to ${nextFSM}`);
-        this.fsm.changeModule(nextFSM);
+        this.fsm.changeModule(nextFSM, args);
     }
 
 
     TryAttack() {
         if(this.attackCooldown > 0)
             return;
+        //First, try to interact
         let angle = Phaser.Math.DegToRad(this.PointerAngleDeg);
         let position = new Phaser.Math.Vector2(16, 0);
         position.rotate(angle);
         this.scene.debugGraphics.clear();
 
         let o = {x:this.shadow.x + position.x, y:this.shadow.y + position.y, angle:angle};
+        this.scene.debugGraphics.strokeCircle(o.x, o.y, 8);
+
+        let targets = this.scene.physics.overlapCirc(o.x, o.y, 8);
+        let interacted:boolean = false;
+        targets.forEach(element => {
+            let e = element.gameObject.getData('Entity') as Entity;
+            if(!e.isDead && e.Interactable) {
+                e.Interact();
+                interacted = true;
+            }
+        });
+
+        if(interacted)
+            return;
+
+        if(!this.HasStick)
+            return;
+        angle = Phaser.Math.DegToRad(this.PointerAngleDeg);
+        position = new Phaser.Math.Vector2(16, 0);
+        position.rotate(angle);
+
+        o = {x:this.shadow.x + position.x, y:this.shadow.y + position.y, angle:angle};
         this.scene.debugGraphics.strokeCircle(o.x, o.y, 8);
         // this.scene.BA.LaunchAttack(o, AttackTypes.StickSwing);
 
@@ -93,12 +122,13 @@ export class MM extends Entity {
         
         this.scene.debugGraphics.strokeCircle(o.x, o.y, 8);
 
-        let targets = this.scene.physics.overlapCirc(o.x, o.y, 8);
+        targets = this.scene.physics.overlapCirc(o.x, o.y, 8);
         targets.forEach(element => {
             element.gameObject.emit(EntityMessages.HIT_BY_STICK);
         });
             
         this.attackSprite.setPosition(this.shadow.x, this.shadow.y);
+        this.attackSprite.setDepth(this.attackSprite.y);
         this.attackSprite.setAngle(Phaser.Math.RadToDeg(angle));
         this.attackSprite.scaleX = .01;
         this.attackSprite.setVisible(true);
@@ -108,7 +138,6 @@ export class MM extends Entity {
             duration: 100,
             // onComplete: ()=>{this.attackSprite.setVisible(false);}
         });
-        this.gs.Midground.add(this.attackSprite);
         this.shadow.setVelocity(0,0);
         this.shadow.setAcceleration(0,0);
         this.shadow.setAcceleration(0,0);
@@ -132,8 +161,14 @@ export class MM extends Entity {
     static CreateAnimations(scene:Phaser.Scene) {
         scene.anims.create({ key: 'Mouse_Stand_Down', frameRate: 6, frames: scene.anims.generateFrameNames('atlas', { prefix: 'Mouse_Stand_Down_', end: 3}), repeat: -1});
         scene.anims.create({ key: 'Mouse_Stand_Up', frameRate: 6, frames: scene.anims.generateFrameNames('atlas', { prefix: 'Mouse_Stand_Up_', end: 3}), repeat: -1});
+        scene.anims.create({ key: 'Mouse_Walk_Down', frameRate: 6, frames: scene.anims.generateFrameNames('atlas', { prefix: 'Mouse_Walk_Down_', end: 3}), repeat: -1});
+        scene.anims.create({ key: 'Mouse_Walk_Up', frameRate: 6, frames: scene.anims.generateFrameNames('atlas', { prefix: 'Mouse_Walk_Up_', end: 3}), repeat: -1});
         scene.anims.create({ key: 'Mouse_Attack_Down', frameRate: 30, frames: scene.anims.generateFrameNames('atlas', { prefix: 'Mouse_Attack_Down_', end: 3}), repeat: 0});
         scene.anims.create({ key: 'Mouse_Attack_Up', frameRate: 30, frames: scene.anims.generateFrameNames('atlas', { prefix: 'Mouse_Attack_Up_', end: 3}), repeat: 0});
+        scene.anims.create({ key: 'Mouse_Pickup_Down', frameRate: 30, frames: scene.anims.generateFrameNames('atlas', { prefix: 'Mouse_Pickup_Down_', end: 0}), repeat: 0});
+        scene.anims.create({ key: 'Mouse_Pickup_Up', frameRate: 30, frames: scene.anims.generateFrameNames('atlas', { prefix: 'Mouse_Pickup_Up_', end: 0}), repeat: 0});
+        scene.anims.create({ key: 'Mouse_Hold_Down', frameRate: 30, frames: scene.anims.generateFrameNames('atlas', { prefix: 'Mouse_Hold_Down_', end: 0}), repeat: 0});
+        scene.anims.create({ key: 'Mouse_Hold_Up', frameRate: 30, frames: scene.anims.generateFrameNames('atlas', { prefix: 'Mouse_Hold_Up_', end: 0}), repeat: 0});
         
     }
 

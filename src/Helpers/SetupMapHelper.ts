@@ -12,6 +12,8 @@ import { Pillbug } from "../Entities/Enemies/Pillbug";
 import { TravelPoint } from "../Entities/TravelPoint";
 import { Ant } from "../Entities/Enemies/Ant";
 import { Bush } from "../Entities/Enemies/Bush";
+import { Chest } from "../Entities/Chest";
+import { Key } from "../Entities/Key";
 
 export class SetupMapHelper {
     static CurrentCollider:Phaser.Physics.Arcade.Collider;
@@ -82,6 +84,21 @@ export class SetupMapHelper {
                         let travelPoint = new TravelPoint(gs, element, element.fieldInstances[0].__value, element.fieldInstances[1].__value);
                         travelPoint.shadow.setPosition(worldposition.x, worldposition.y);
                         mo.mapEntities.push(travelPoint);
+                break;
+                case 'Chest':
+                        let chest = new Chest(gs, element);
+                        chest.shadow.setPosition(worldposition.x, worldposition.y);
+                        mo.mapEntities.push(chest);
+                        maps.collideLayer.putTileAtWorldXY(5, worldposition.x, worldposition.y);
+                break;
+                case 'Key':
+                        if(!C.gd.IDsCollected.includes(element.iid)) {
+                            let key = new Key(gs, element);
+                            key.shadow.setPosition(worldposition.x, worldposition.y);
+                            mo.mapEntities.push(key);
+                            maps.collideLayer.putTileAtWorldXY(5, worldposition.x, worldposition.y);
+                        }
+
                 break;
                 case 'Obstacle':
                         let o = gs.add.image(worldposition.x, worldposition.y, 'atlas', 'OutdoorObstacles_0').setDepth(worldposition.y).setOrigin(.5,.8);

@@ -56,6 +56,7 @@ export class Enemy extends Entity {
         this.shadow.emit(EntityMessages.CHANGE_HP, this.hp, this.maxhp);
         if(this.hp == 0) {
             this.shadow.emit('dead');
+            this.isDead = true;
         }
     }
 

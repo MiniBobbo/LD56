@@ -1,3 +1,4 @@
+import { C } from "../C";
 import { EntityMessages } from "../enums/EntityMessages";
 import { SceneMessages } from "../enums/SceneMessages";
 import { LevelScene } from "./LevelScene";
@@ -5,6 +6,7 @@ import { LevelScene } from "./LevelScene";
 export class GuiScene extends Phaser.Scene {
     cheeses:Phaser.GameObjects.Image[];
     weapon:Phaser.GameObjects.Image;
+    keyTexts:Phaser.GameObjects.BitmapText[] = [];
     create() {
         this.cameras.main.setBackgroundColor(0x000000)
         .setSize(100, 300)
@@ -19,6 +21,37 @@ export class GuiScene extends Phaser.Scene {
         // .setScale(1.5)
         .setTint(0xff0000);
         weaponText.x = (100 - weaponText.displayWidth) / 2;
+        this.weapon = this.add.image(30, 90, 'atlas', 'Stick_0');
+        this.weapon.postFX.addGlow();
+        let keyText = this.add.bitmapText(25,260, '6px', '- KEYS -', 12)
+        // .setScale(1.5)
+        .setTint(0xff0000);
+        keyText.x = (100 - keyText.displayWidth) / 2;
+        let keys:Phaser.GameObjects.Image[] = [];
+        for(let i = 0; i < 4; i++) {
+            let key = this.add.image(10+ i * 10, 90 , 'atlas', `Key_${i}`);
+            keys.push(key);
+            let kt = this.add.bitmapText(10, 90 + i * 10, '6px', '0', 12);
+            kt.x = (100 - kt.displayWidth) / 2;
+            this.keyTexts.push(kt);
+        }
+        Phaser.Actions.GridAlign(keys, {
+            width: 4,
+            height: 1,
+            cellWidth: 20,
+            cellHeight: 20,
+            x: 10,
+            y: 270
+        });
+        Phaser.Actions.GridAlign(this.keyTexts, {
+            width: 4,
+            height: 1,
+            cellWidth: 20,
+            cellHeight: 20,
+            x: 12,
+            y: 270
+        });
+
         this.weapon = this.add.image(30, 90, 'atlas', 'Stick_0');
         this.weapon.postFX.addGlow();
 
@@ -43,6 +76,12 @@ export class GuiScene extends Phaser.Scene {
             this.ChangeHP(hp, maxhp);
         });
 
+        this.events.on(GuiEvents.UPDATE_KEYS, ()=> {
+            for(let i = 0; i < this.keyTexts.length; i++) {
+                this.keyTexts[i].setText(C.gd.keys[i] + "");
+            }
+        });
+
         let gs = this.scene.get('level') as LevelScene;
         this.ChangeHP(3,3);
     }
@@ -61,4 +100,10 @@ export class GuiScene extends Phaser.Scene {
         }
 
     }
+}
+
+export enum GuiEvents {
+    ChangeHP = 'change_hp',
+    ChangeWeapon = 'change_weapon',
+    UPDATE_KEYS = 'update_keys'
 }

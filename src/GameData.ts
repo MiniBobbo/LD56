@@ -10,6 +10,9 @@ export class GameData {
     MaxHP:number = 3;
     CurrentLevel:string = 'Level_5';
     SaveLevel:string = 'Level_5';
+    keys:number[] = [0,0,0,0];
+
+    IDsCollected:string[] = [];
 
     constructor() {
         this.ExploredLevels = [];

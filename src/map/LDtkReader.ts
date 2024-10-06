@@ -438,6 +438,7 @@ export interface EntityInstance {
     defUid:         number;
     px:             number[];
     fieldInstances: FieldInstance[];
+    iid:string;
 }
 
 export interface FieldInstance {

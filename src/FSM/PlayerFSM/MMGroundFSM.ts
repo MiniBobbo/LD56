@@ -13,7 +13,7 @@ export class MMGroundFSM extends FSMModule {
         this.mm.sprite.on('animationupdate', this.AnimationUpdate, this);
         // this.mm.scene.events.on('mergedInput', this.CheckInput, this);
         this.mm.AddAnimationSuffix = true;
-        this.mm.on(EntityMessages.TRY_ATTACK, this.mm.TryAttack, this);
+        this.mm.on(EntityMessages.TRY_ATTACK, this.mm.TryAttack, this.mm);
 
     }
 
@@ -28,7 +28,7 @@ export class MMGroundFSM extends FSMModule {
     moduleEnd(args: any): void {
         // this.mm.scene.events.removeListener('mergedInput', this.CheckInput, this);
         this.mm.removeListener('animationupdate', this.AnimationUpdate, this);
-        this.mm.removeListener(EntityMessages.TRY_ATTACK, this.mm.TryAttack, this);
+        this.mm.removeListener(EntityMessages.TRY_ATTACK, this.mm.TryAttack, this.mm);
     }
 
     // CheckInput(i:{ device:string, value:number, player:number, action:string, state:string }) {
@@ -95,10 +95,10 @@ export class MMGroundFSM extends FSMModule {
             this.mm.AnimationSuffix = '_Down';
 
 
-        // if(this.mm.shadow.body.velocity.length() > 0) {
-            // this.mm.PlayAnimation('Run'+this.mm.AnimationSuffix);
-        // } else {
+        if(this.mm.shadow.body.velocity.length() > 0) {
+            this.mm.PlayAnimation('Walk');
+        } else {
             this.mm.PlayAnimation('Stand');
-        // }
+        }
     }
 }

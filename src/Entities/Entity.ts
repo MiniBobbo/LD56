@@ -30,6 +30,8 @@ export class Entity {
     isDead:boolean = false;
     
 
+    //Is this entity Interactable?
+    Interactable:boolean = false;
     
     //How high off the ground is the bottom of this entity?
     Z:number = 0;
@@ -113,11 +115,16 @@ export class Entity {
         this.sprite.anims.pause();
     }
 
+    Interact() {
+
+    }
+
     dispose() {
         this.sprite.removeListener(EntityMessages.ACCELERATE, this.AddExternalAcceleration, this);
         this.scene.events.removeListener('preupdate',this.Update, this);
         this.scene.events.removeListener('travel',() => {this.fsm.clearModule();}, this);
         this.sprite.destroy();
+        this.shadow.destroy();
     }
 
     Update(time:number, dt:number) {
@@ -153,6 +160,7 @@ export class Entity {
             }
         }
     }
+
 
     changeFSM(nextFSM:string) {
         this.fsm.changeModule(nextFSM);

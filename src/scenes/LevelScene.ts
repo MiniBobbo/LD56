@@ -203,7 +203,7 @@ export class LevelScene extends Phaser.Scene {
         }
 
         if(this.ih.IsJustPressed(IHVI.Fire)) {
-            this.mm.TryAttack();
+            this.mm.emit(EntityMessages.TRY_ATTACK, this);
         }
 
         if(this.mm.shadow.x < this.currentMapPack.worldX) {
