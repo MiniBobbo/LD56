@@ -8,11 +8,8 @@ export class GameData {
     CollectedPowerups:Array<{level:string, type:PowerTypes}>;
     ExploredLevels:string[];
     MaxHP:number = 3;
-    Gold:number = 0;
-    Emerald:number = 0;
-    Diamond:number = 0;
-    CurrentLevel:string = 'Level_0';
-    SaveLevel:string = 'Level_0';
+    CurrentLevel:string = 'Level_5';
+    SaveLevel:string = 'Level_5';
 
     constructor() {
         this.ExploredLevels = [];

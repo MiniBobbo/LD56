@@ -1,5 +1,6 @@
 import { EntityMessages } from "../enums/EntityMessages";
 import { SceneMessages } from "../enums/SceneMessages";
+import { LevelScene } from "./LevelScene";
 
 export class GuiScene extends Phaser.Scene {
     cheeses:Phaser.GameObjects.Image[];
@@ -18,39 +19,46 @@ export class GuiScene extends Phaser.Scene {
         // .setScale(1.5)
         .setTint(0xff0000);
         weaponText.x = (100 - weaponText.displayWidth) / 2;
-        this.weapon = this.add.image(40, 90, 'atlas', 'Stick_0');
+        this.weapon = this.add.image(30, 90, 'atlas', 'Stick_0');
         this.weapon.postFX.addGlow();
 
 
         this.cheeses = [];
-        for(let i =0; i < 8; i++) {
+        for(let i =0; i < 6; i++) {
             let c = this.add.image(0,0,'atlas', 'Icons_1');
             this.cheeses.push(c);
         }
 
         Phaser.Actions.GridAlign(this.cheeses, {
-            width: 4,
+            width: 3,
             height: 2,
-            cellWidth: 20,
-            cellHeight: 20,
+            cellWidth: 30,
+            cellHeight: 25,
             x: 10,
             y: 20
         });
 
 
         this.events.on(EntityMessages.CHANGE_HP, (hp:number, maxhp:number)=> {
-            for(let i = 0; i < this.cheeses.length; i++) {
-                if(i < hp) {
-                    this.cheeses[i].setVisible(true);
-                    this.cheeses[i].setFrame('Icons_1');
-                } else if(i < maxhp) {
-                    this.cheeses[i].setVisible(true);
-                    this.cheeses[i].setFrame('Icons_0');
-                } else {
-                    this.cheeses[i].setVisible(false);
-                }
-            }
+            this.ChangeHP(hp, maxhp);
         });
-    
+
+        let gs = this.scene.get('level') as LevelScene;
+        this.ChangeHP(3,3);
+    }
+
+    ChangeHP(hp:number, maxhp:number) {
+        for(let i = 0; i < this.cheeses.length; i++) {
+            if(i < hp) {
+                this.cheeses[i].setVisible(true);
+                this.cheeses[i].setFrame('Icons_1');
+            } else if(i < maxhp) {
+                this.cheeses[i].setVisible(true);
+                this.cheeses[i].setFrame('Icons_0');
+            } else {
+                this.cheeses[i].setVisible(false);
+            }
+        }
+
     }
 }

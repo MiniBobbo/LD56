@@ -6,9 +6,6 @@ export class C {
     static gd:GameData;
     static FLAG_COUNT:number = 100;
 
-    static SavedMap:string = 'Level_0';
-    static LastLocationMessage = '';
-
     static GRAVITY:number = 0;
     static DRAG:number = 1000;
     static MOVE_SPEED:number = 100;

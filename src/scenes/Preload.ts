@@ -1,6 +1,7 @@
 import { C } from "../C";
 import { EffectManager } from "../effects/EffectManager";
 import { Ant } from "../Entities/Enemies/Ant";
+import { Bush } from "../Entities/Enemies/Bush";
 import { Pillbug } from "../Entities/Enemies/Pillbug";
 import { MM } from "../Entities/MM";
 import { GameData } from "../GameData";
@@ -66,6 +67,9 @@ export class Preload extends Phaser.Scene {
             assetText.destroy();
             //@ts-ignore
             this.scene.start('level');
+            //@ts-ignore
+            // this.scene.launch('gui');
+
         }, this);
     
         this.load.setBaseURL('./assets/')
@@ -87,6 +91,7 @@ export class Preload extends Phaser.Scene {
         MM.CreateAnimations(this);
         Pillbug.CreateAnimations(this);
         Ant.CreateAnimations(this);
+        Bush.CreateAnimations(this);
         EffectManager.CreateAnimations(this);
 
         IH.AddVirtualInput(IHVI.Up);

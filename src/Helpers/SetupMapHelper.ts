@@ -11,6 +11,7 @@ import { LevelScene } from "../scenes/LevelScene";
 import { Pillbug } from "../Entities/Enemies/Pillbug";
 import { TravelPoint } from "../Entities/TravelPoint";
 import { Ant } from "../Entities/Enemies/Ant";
+import { Bush } from "../Entities/Enemies/Bush";
 
 export class SetupMapHelper {
     static CurrentCollider:Phaser.Physics.Arcade.Collider;
@@ -37,7 +38,7 @@ export class SetupMapHelper {
     }
     static CreateEntities(gs: LevelScene, maps: LDtkMapPack, mo:MapObjects) {
         maps.entityLayers.entityInstances.forEach(element => {
-            let worldposition = {x:element.px[0] + maps.worldX, y:element.px[1] + maps.worldY};
+            let worldposition = {x:element.px[0] + maps.worldX + 10, y:element.px[1] + maps.worldY + 10};
             switch (element.__identifier) {
                 case 'Cutscene':
                         let name = element.fieldInstances[0].__value;
@@ -63,24 +64,32 @@ export class SetupMapHelper {
                 case 'Pillbug':
                         let pillbug = new Pillbug(gs);
                         pillbug.shadow.setPosition(worldposition.x, worldposition.y);
+                        mo.mapEntities.push(pillbug);
                 break;
                 case 'Ant':
                         let ant = new Ant(gs);
                         ant.shadow.setPosition(worldposition.x, worldposition.y);
+                        mo.mapEntities.push(ant);
+                break;
+                case 'Bush':
+                        let bush = new Bush(gs);
+                        bush.shadow.setPosition(worldposition.x, worldposition.y);
+                        mo.mapEntities.push(bush);
                 break;
                 case 'Travel':
                         let travelPoint = new TravelPoint(gs, element, element.fieldInstances[0].__value, element.fieldInstances[1].__value);
-                        travelPoint.shadow.setPosition(worldposition.x+10, worldposition.y+10);
+                        travelPoint.shadow.setPosition(worldposition.x, worldposition.y);
+                        mo.mapEntities.push(travelPoint);
                 break;
                 case 'Obstacle':
-                        let o = gs.add.image(worldposition.x+10, worldposition.y+10, 'atlas', 'OutdoorObstacles_0').setDepth(worldposition.y).setOrigin(.5,.8);
+                        let o = gs.add.image(worldposition.x, worldposition.y, 'atlas', 'OutdoorObstacles_0').setDepth(worldposition.y).setOrigin(.5,.8);
                         switch (element.fieldInstances[0].__value) {
                             case 'Flower':
                                 o.setFrame('OutdoorObstacles_1');
                             break;
                         }
                         gs.Midground.add(o);
-                        let tile = maps.collideLayer.getTileAtWorldXY(worldposition.x+10, worldposition.y+10);
+                        let tile = maps.collideLayer.getTileAtWorldXY(worldposition.x, worldposition.y);
                         tile.index = 5;
 
                         // pillbug.shadow.setPosition(worldposition.x, worldposition.y);

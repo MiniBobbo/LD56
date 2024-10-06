@@ -12,6 +12,7 @@ import { SetupMapHelper } from "../Helpers/SetupMapHelper";
 import { IH, IHVI } from "../IH/IH";
 import { LDtkMapPack, LdtkReader, Level } from "../map/LDtkReader";
 import { MapObjects } from "../map/MapObjects";
+import { GuiScene } from "./GuiScene";
 
 export class LevelScene extends Phaser.Scene {
     player!:Entity;
@@ -37,6 +38,8 @@ export class LevelScene extends Phaser.Scene {
     BG:Phaser.GameObjects.TileSprite;
 
     debugGraphics:Phaser.GameObjects.Graphics;
+
+    guiScene:GuiScene;
 
     GuiLayer:Phaser.GameObjects.Layer;
     Foreground:Phaser.GameObjects.Layer;
@@ -80,6 +83,7 @@ export class LevelScene extends Phaser.Scene {
         }, this);
     
         this.scene.launch('gui').bringToTop('gui');
+        this.guiScene = this.scene.get('gui') as GuiScene;
         this.CollideMap = this.physics.add.group();
         this.CollidePlayer = this.physics.add.group();
         this.CollideEnemy = this.physics.add.group();
@@ -105,7 +109,9 @@ export class LevelScene extends Phaser.Scene {
 
         this.ih = new IH(this);
 
-        this.debug = this.add.text(0,0,"").setFontSize(12).setDepth(1000).setScrollFactor(0,0).setVisible(false);
+        this.debug = this.add.text(0,0,"").setFontSize(12).setDepth(1000)
+        // .setVisible(false)
+        .setScrollFactor(0,0);
         this.debugGraphics = this.add.graphics()
         // .setVisible(false)
         .setDepth(5);
@@ -121,10 +127,10 @@ export class LevelScene extends Phaser.Scene {
 
         // C.setFlag(PowerTypes.LIGHT, true);
 
-        let startpos = this.currentMapPack.entityLayers.entityInstances.find(e=>e.__identifier == 'PlayerStart');
-        if(startpos === undefined)
-            this.mm.shadow.setPosition(300,300);
-        else
+        let startpos = this.currentMapPack.entityLayers.entityInstances.find(e=>e.__identifier == 'EntryPoint');
+        // if(startpos === undefined)
+        //     this.mm.shadow.setPosition(300,300);
+        // else
             this.mm.shadow.setPosition(startpos.px[0] + m.level.worldX+10, startpos.px[1] + m.level.worldY);
 
         this.CollideMap.add(this.mm.shadow);
@@ -134,8 +140,8 @@ export class LevelScene extends Phaser.Scene {
         let by = m.height;
         if(m.height == 140)
             by = 135;
-        this.cameras.main.setBounds(m.worldX,m.worldY,m.width, by);
-        this.cameras.main.startFollow(this.mm.sprite);
+        // this.cameras.main.setBounds(m.worldX,m.worldY,m.width, by);
+        // this.cameras.main.startFollow(this.mm.sprite);
 
         //@ts-ignore
         this.physics.add.overlap(this.CollideEnemy, this.Enemies, (a:Phaser.Physics.Arcade.Sprite, e:Phaser.Physics.Arcade.Sprite)=>{
@@ -178,6 +184,7 @@ export class LevelScene extends Phaser.Scene {
 
         this.mm.emit(EntityMessages.POINTER_POS, {x:this.Pointer.x + this.cameras.main.scrollX, y:this.Pointer.y + this.cameras.main.scrollY});
 
+        this.events.emit('debug', `Camera: ${this.cameras.main.scrollX}, ${this.cameras.main.scrollY}`, true);
         
         if(this.Paused) {
             if(this.ih.IsJustPressed(IHVI.Fire))
@@ -251,7 +258,6 @@ export class LevelScene extends Phaser.Scene {
         let nlevel = this.reader.ldtk.levels.find(l=>l.iid == nextleveluid);
         this.physics.pause();
         this.CreateNextMap(nlevel);
-        this.cameras.main.stopFollow();
         let cam = this.cameras.main;
         cam.removeBounds();
         let sx = cam.scrollX;
@@ -366,6 +372,8 @@ export class LevelScene extends Phaser.Scene {
         // this.cameras.main.setBounds(this.currentMapPack.worldX, this.currentMapPack.worldY, this.currentMapPack.width, this.currentMapPack.height);
         // this.cameras.main.startFollow(this.mm.sprite);
 
+        this.cameras.main.setScroll(this.currentMapPack.worldX, this.currentMapPack.worldY);
+
         // if(this.currentMapPack.level.fieldInstances[3].__value != null && C.LastLocationMessage != this.currentMapPack.level.fieldInstances[3].__value) {
         //     new LocationMessage(this.currentMapPack.level.fieldInstances[3].__value, this, this.GuiLayer);
         // }
@@ -405,22 +413,7 @@ export class LevelScene extends Phaser.Scene {
             this.mm.maxhp++;
             this.mm.hp++;
             this.mm.sprite.emit(EntityMessages.CHANGE_HP, this.mm.hp, this.mm.maxhp);
-        } else if(power == PowerTypes.GOLD) {
-            C.gd.Gold++;
-            this.events.emit(SceneMessages.ChangeGems);
-        }   else if(power == PowerTypes.DIAMOND) {
-            C.gd.Diamond++;
-            this.events.emit(SceneMessages.ChangeGems);
-        }   else if(power == PowerTypes.EMERALD) {
-            C.gd.Emerald++;
-            this.events.emit(SceneMessages.ChangeGems);
         }
-        else if(power == PowerTypes.AXES)
-            C.setFlag(PowerTypes.AXES, true);
-        else if(power == PowerTypes.GRAB)
-            C.setFlag(PowerTypes.GRAB, true);
-
-
     }
 
     RemoveEvents() {

@@ -61,6 +61,7 @@ export class MM extends Entity {
         this.fsm.changeModule('knockback', attackLocation);    
         this.scene.cameras.main.shake(100,.02);    
         super.Damage(damage, attackLocation);
+        this.gs.guiScene.events.emit(EntityMessages.CHANGE_HP, this.hp, this.maxhp);
         if(this.hp <=0) {
             // this.gs.physics.pause();
             this.gs.events.emit(EntityMessages.PLAYER_DEAD);
