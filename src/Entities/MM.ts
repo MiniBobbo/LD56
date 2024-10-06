@@ -37,7 +37,8 @@ export class MM extends Entity {
 
         
 
-        this.on(EntityMessages.POINTER_POS, (p:{x:number, y:number})=> {this.PointerAngleDeg = Phaser.Math.RadToDeg(Phaser.Math.Angle.BetweenPoints(this.shadow, p));
+        this.on(EntityMessages.POINTER_POS, (p:{x:number, y:number})=> {
+            this.PointerAngleDeg = Phaser.Math.RadToDeg(Phaser.Math.Angle.BetweenPoints(this.shadow, p));
             this.scene.events.emit('debug', `Pointer angle: ${this.PointerAngleDeg}`, true);
         }, this);
 
@@ -71,7 +72,7 @@ export class MM extends Entity {
     TryAttack() {
         if(this.attackCooldown > 0)
             return;
-        let angle = Phaser.Math.Angle.Between(this.shadow.x, this.shadow.y, this.gs.Pointer.x, this.gs.Pointer.y);
+        let angle = Phaser.Math.DegToRad(this.PointerAngleDeg);
         let position = new Phaser.Math.Vector2(8, 0);
         position.rotate(angle);
         this.scene.debugGraphics.clear();
@@ -102,6 +103,7 @@ export class MM extends Entity {
             duration: 100,
             // onComplete: ()=>{this.attackSprite.setVisible(false);}
         });
+        this.gs.Midground.add(this.attackSprite);
         this.shadow.setVelocity(0,0);
         this.shadow.setAcceleration(0,0);
         this.shadow.setAcceleration(0,0);

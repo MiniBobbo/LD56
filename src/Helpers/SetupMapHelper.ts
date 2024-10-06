@@ -25,7 +25,7 @@ export class SetupMapHelper {
         //         l.setDepth(200);
         // });
 
-        maps.collideLayer.setCollision([2]);
+        maps.collideLayer.setCollision([2, 5]);
 
         this.CreateEntities(gs, maps, mo);
         // this.CreatePhysics(gs,maps);

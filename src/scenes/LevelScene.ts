@@ -111,7 +111,7 @@ export class LevelScene extends Phaser.Scene {
         this.ih = new IH(this);
 
         this.debug = this.add.text(0,0,"").setFontSize(12).setDepth(1000).setScrollFactor(0,0);
-        this.debugGraphics = this.add.graphics().setDepth(1001);
+        this.debugGraphics = this.add.graphics().setDepth(1001).setVisible(false);
 
         let level = this.reader.ldtk.levels.find((l: any) => l.identifier === C.gd.CurrentLevel);
         this.CreateNextMap(level);
@@ -198,7 +198,7 @@ export class LevelScene extends Phaser.Scene {
 
         this.Pointer.setPosition(this.PointerOffset.x, this.PointerOffset.y);
 
-        this.mm.sprite.emit(EntityMessages.POINTER_POS, {x:this.Pointer.x + this.cameras.main.x, y:this.Pointer.y + this.cameras.main.y});
+        this.mm.emit(EntityMessages.POINTER_POS, {x:this.Pointer.x + this.cameras.main.scrollX, y:this.Pointer.y + this.cameras.main.scrollY});
 
         
         if(this.Paused) {
@@ -334,7 +334,7 @@ export class LevelScene extends Phaser.Scene {
         // if(this.currentMapCollider != null)
         //     this.currentMapCollider.destroy();
         this.physics.world.setBounds(this.nextMapPack.worldX, this.nextMapPack.worldY, this.nextMapPack.width, this.nextMapPack.height);
-        this.nextMapPack.collideLayer.setCollision([2]);
+        this.nextMapPack.collideLayer.setCollision([2, 5]);
         this.currentMap = nLevel.identifier;
         C.gd.CurrentLevel = nLevel.identifier;
         this.nextMapPack.displayLayers.forEach(element => {
