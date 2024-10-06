@@ -9,6 +9,7 @@ import { EntityInstance, LDtkMapPack } from "../map/LDtkReader";
 import { MapObjects } from "../map/MapObjects";
 import { LevelScene } from "../scenes/LevelScene";
 import { Pillbug } from "../Entities/Enemies/Pillbug";
+import { TravelPoint } from "../Entities/TravelPoint";
 
 export class SetupMapHelper {
     static CurrentCollider:Phaser.Physics.Arcade.Collider;
@@ -61,6 +62,18 @@ export class SetupMapHelper {
                 case 'Pillbug':
                         let pillbug = new Pillbug(gs);
                         pillbug.shadow.setPosition(worldposition.x, worldposition.y);
+                break;
+                case 'Travel':
+                        let travelPoint = new TravelPoint(gs, element, element.fieldInstances[0].__value, element.fieldInstances[1].__value);
+                        travelPoint.shadow.setPosition(worldposition.x+10, worldposition.y+10);
+                break;
+                case 'Obstacle':
+                        let o = gs.add.image(worldposition.x+10, worldposition.y+10, 'atlas', 'OutdoorObstacles_0').setDepth(worldposition.y).setOrigin(.5,.8);
+                        gs.Midground.add(o);
+                        let tile = maps.collideLayer.getTileAtWorldXY(worldposition.x+10, worldposition.y+10);
+                        tile.index = 5;
+
+                        // pillbug.shadow.setPosition(worldposition.x, worldposition.y);
                 break;
                 default:
                     break;

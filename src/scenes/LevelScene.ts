@@ -244,6 +244,22 @@ export class LevelScene extends Phaser.Scene {
         throw new Error("Method not implemented.");
     }
 
+    FadeMap(nextMap:string, EntryPoint:string) {
+        this.mm.changeFSM('end');
+        this.physics.pause();
+        this.cameras.main.fadeOut(300, 0,0,0,(cam:any, progress)=>{if(progress==1){
+            let nlevel = this.reader.GetLevelFromName(nextMap);
+            this.CreateNextMap(nlevel);
+            this.EndScreenTransition();
+            let entryPoint = this.nextMapPack.entityLayers.entityInstances.find(e=>e.__identifier == 'EntryPoint' && e.fieldInstances[0].__value == EntryPoint); 
+            this.mm.shadow.setPosition(entryPoint.px[0] + this.nextMapPack.worldX + 10, entryPoint.px[1] + this.nextMapPack.worldY + 10);
+            this.cameras.main.setScroll(this.nextMapPack.worldX, this.nextMapPack.worldY);
+            this.cameras.main.fadeIn(300);
+            this.mm.changeFSM('move');
+        }},this);
+
+    }
+
     /**
      * Tries to transition the map to a new location.  This should be called when the player moves off the screen in a direction
      * 
@@ -344,12 +360,12 @@ export class LevelScene extends Phaser.Scene {
         this.nextMapPack.displayLayers.forEach(element => {
             if(element.name == 'Fg')
                 this.Foreground.add(element);
-            if(element.name == 'Decor')
-                this.Background.add(element);
-            if(element.name == 'Mg')
+            if(element.name == 'MG')
                 this.Midground.add(element);
-            
-
+            if(element.name == 'Floor')
+                this.Background.add(element.setDepth(1));
+            if(element.name == 'FloorTiles')
+                this.Background.add(element.setDepth(2));
         });
 
         

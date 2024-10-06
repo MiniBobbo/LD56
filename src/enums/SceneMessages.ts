@@ -2,5 +2,6 @@ export enum SceneMessages {
     ChangeLevel = 'changelevel',
     ChangeGems = 'changegems',
     HitCheckpoint = 'hitcheckpoint',
-    Effect = "Effect"   
+    Effect = "Effect",   
+    SOUND = "SOUND"
 }

@@ -5,6 +5,7 @@ import { EffectTypes } from "../enums/EffectTypes";
 import { EntityMessages } from "../enums/EntityMessages";
 import { SceneMessages } from "../enums/SceneMessages";
 import { MMAttackFSM } from "../FSM/PlayerFSM/MMAttackFSM";
+import { MMEndFSM } from "../FSM/PlayerFSM/MMEndFSM";
 import { MMGroundFSM } from "../FSM/PlayerFSM/MMGroundFSM";
 import { MMKnockbackFSM } from "../FSM/PlayerFSM/MMKnockbackFSM";
 import { IH } from "../IH/IH";
@@ -29,6 +30,7 @@ export class MM extends Entity {
         this.PlayAnimation('Stand');
         // this.sprite.setGravityY(100);
         this.fsm.addModule('attack', new MMAttackFSM(this, this.fsm));
+        this.fsm.addModule('end', new MMEndFSM(this, this.fsm));
         this.fsm.addModule('move', new MMGroundFSM(this, this.fsm));
         this.fsm.addModule('knockback', new MMKnockbackFSM(this, this.fsm));
         this.fsm.changeModule('move');

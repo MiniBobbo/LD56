@@ -138,6 +138,7 @@ export class Entity {
 
 
         this.sprite.setPosition(this.shadow.x, this.shadow.y - this.Z - this.HeightOffset);
+        this.sprite.setDepth(this.shadow.y);
 
 
         if(this.flashing) {
