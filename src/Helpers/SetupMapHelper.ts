@@ -16,6 +16,10 @@ import { Chest } from "../Entities/Chest";
 import { Key } from "../Entities/Key";
 import { WiseRat } from "../Cutscenes/WiseRat";
 import { AppearText } from "../Cutscenes/AppearText";
+import { BlockerKill } from "../Entities/Enemies/BlockerKill";
+import { RedAnt } from "../Entities/Enemies/RedAnt";
+import { BlockerTrigger } from "../Entities/Enemies/BlockerTrigger";
+import { BlockerKey } from "../Entities/Enemies/BlockerKey";
 
 export class SetupMapHelper {
     static CurrentCollider:Phaser.Physics.Arcade.Collider;
@@ -75,6 +79,16 @@ export class SetupMapHelper {
                         ant.shadow.setPosition(worldposition.x, worldposition.y);
                         mo.mapEntities.push(ant);
                 break;
+                case 'Pillbug':
+                        let pb = new Pillbug(gs);
+                        pb.shadow.setPosition(worldposition.x, worldposition.y);
+                        mo.mapEntities.push(pb);
+                break;
+                case 'RedAnt':
+                        let redant = new RedAnt(gs);
+                        redant.shadow.setPosition(worldposition.x, worldposition.y);
+                        mo.mapEntities.push(redant);
+                break;
                 case 'WiseRat':
                         let wr = new WiseRat('WiseRat', gs, element);
                         wr.shadow.setPosition(worldposition.x, worldposition.y);
@@ -91,6 +105,24 @@ export class SetupMapHelper {
                         mo.mapEntities.push(bush);
                         maps.collideLayer.putTileAtWorldXY(5, worldposition.x, worldposition.y);
 
+                break;
+                case 'BlockerKill':
+                        let blockKill = new BlockerKill(gs, parseInt(element.fieldInstances[0].__value));
+                        blockKill.shadow.setPosition(worldposition.x, worldposition.y);
+                        mo.mapEntities.push(blockKill);
+                        maps.collideLayer.putTileAtWorldXY(1, worldposition.x, worldposition.y);
+                break;
+                case 'BlockerTrigger':
+                        let blockTrigger = new BlockerTrigger(gs, element);
+                        blockTrigger.shadow.setPosition(worldposition.x, worldposition.y);
+                        mo.mapEntities.push(blockTrigger);
+                        maps.collideLayer.putTileAtWorldXY(1, worldposition.x, worldposition.y);
+                break;
+                case 'BlockerKey':
+                        let blockKey = new BlockerKey(gs, element);
+                        blockKey.shadow.setPosition(worldposition.x, worldposition.y);
+                        mo.mapEntities.push(blockKey);
+                        maps.collideLayer.putTileAtWorldXY(1, worldposition.x, worldposition.y);
                 break;
                 case 'Travel':
                         let travelPoint = new TravelPoint(gs, element, element.fieldInstances[0].__value, element.fieldInstances[1].__value);
@@ -114,9 +146,16 @@ export class SetupMapHelper {
                 break;
                 case 'Obstacle':
                         let o = gs.add.image(worldposition.x, worldposition.y, 'atlas', 'OutdoorObstacles_0').setDepth(worldposition.y).setOrigin(.5,.8);
+                        o.flipX = element.fieldInstances[1].__value as boolean;
                         switch (element.fieldInstances[0].__value) {
                             case 'Flower':
                                 o.setFrame('OutdoorObstacles_1');
+                            break;
+                            case 'Rock':
+                                o.setFrame('OutdoorObstacles_2');
+                            break;
+                            case 'AntStatue':
+                                o.setFrame('OutdoorObstacles_3');
                             break;
                         }
                         gs.Midground.add(o);

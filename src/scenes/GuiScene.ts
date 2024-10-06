@@ -72,6 +72,10 @@ export class GuiScene extends Phaser.Scene {
         this.events.on(EntityMessages.CHANGE_HP, (hp:number, maxhp:number)=> {
             this.ChangeHP(hp, maxhp);
         });
+        this.events.on(GuiEvents.ChangeWeapon, (weapon:string)=> {
+            this.weapon.setVisible(true);
+            this.weapon.setFrame(weapon + '_0');
+        });
 
         this.events.on(GuiEvents.UPDATE_KEYS, ()=> {
             for(let i = 0; i < this.keyTexts.length; i++) {

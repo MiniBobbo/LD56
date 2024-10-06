@@ -59,6 +59,12 @@ export class Chest extends Entity {
                 message = `You got a small piece of Cheese!\nYou have gained extra health!`;
                 frame = 'Icons_1';
                 break;
+            case 'Stick':
+                this.gs.mm.HasStick = true;
+                this.gs.guiScene.events.emit(GuiEvents.ChangeWeapon, 'Stick');
+                message = 'You found a pointed stick!  Poke stuff with the mouse button!';
+                frame = 'Stick_0';
+            break;
             default:
                 break;
         }

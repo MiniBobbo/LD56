@@ -2,8 +2,10 @@ import { C } from "../C";
 import { WiseRat } from "../Cutscenes/WiseRat";
 import { EffectManager } from "../effects/EffectManager";
 import { Ant } from "../Entities/Enemies/Ant";
+import { BlockerKill } from "../Entities/Enemies/BlockerKill";
 import { Bush } from "../Entities/Enemies/Bush";
 import { Pillbug } from "../Entities/Enemies/Pillbug";
+import { RedAnt } from "../Entities/Enemies/RedAnt";
 import { MM } from "../Entities/MM";
 import { GameData } from "../GameData";
 import { GamepadButtons, IH, IHVI } from "../IH/IH";
@@ -92,7 +94,9 @@ export class Preload extends Phaser.Scene {
         MM.CreateAnimations(this);
         Pillbug.CreateAnimations(this);
         Ant.CreateAnimations(this);
+        RedAnt.CreateAnimations(this);
         Bush.CreateAnimations(this);
+        BlockerKill.CreateAnimations(this);
         WiseRat.CreateAnimations(this);
         EffectManager.CreateAnimations(this);
 

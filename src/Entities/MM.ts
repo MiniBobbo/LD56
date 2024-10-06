@@ -23,7 +23,7 @@ export class MM extends Entity {
     attackSprite:Phaser.GameObjects.Sprite;
     PointerAngleDeg:number;
 
-    HasStick:boolean = true;
+    HasStick:boolean = false;
 
     private attackCooldown:number = 0;
     constructor(scene:LevelScene, ih:IH) {
@@ -51,7 +51,7 @@ export class MM extends Entity {
             this.PointerAngleDeg = Phaser.Math.RadToDeg(Phaser.Math.Angle.BetweenPoints(this.shadow, p));
             this.scene.events.emit('debug', `Pointer angle: ${this.PointerAngleDeg}`, true);
         }, this);
-        
+
     }
 
 

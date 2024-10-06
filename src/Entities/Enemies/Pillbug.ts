@@ -1,3 +1,5 @@
+import { PillbugFSM } from "../../FSM/Enemies/PillbugFSM";
+import { EnemyKnockbackFSM } from "../../FSM/EnemyGeneric/EnemyKnockbackFSM";
 import { LevelScene } from "../../scenes/LevelScene";
 import { Enemy } from "../Enemy";
 
@@ -7,7 +9,13 @@ export class Pillbug extends Enemy {
         super(scene);
         this.maxhp = 3;
         this.hp = 3;
-        this.PlayAnimation('Roll');
+        this.PlayAnimation('Stand');
+        this.shadow.setCollideWorldBounds(true);
+
+        this.fsm.addModule('default', new PillbugFSM(this, this.fsm));
+        this.fsm.addModule('knockback', new EnemyKnockbackFSM(this, this.fsm));
+        this.changeFSM('default');
+
     }
 
 

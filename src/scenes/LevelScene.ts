@@ -234,6 +234,7 @@ export class LevelScene extends Phaser.Scene {
             let nlevel = this.reader.GetLevelFromName(nextMap);
             this.CreateNextMap(nlevel);
             this.EndScreenTransition();
+            C.gd.SaveLevel = nextMap;
             let entryPoint = this.nextMapPack.entityLayers.entityInstances.find(e=>e.__identifier == 'EntryPoint' && e.fieldInstances[0].__value == EntryPoint); 
             this.mm.shadow.setPosition(entryPoint.px[0] + this.nextMapPack.worldX + 10, entryPoint.px[1] + this.nextMapPack.worldY + 10);
             this.cameras.main.setScroll(this.nextMapPack.worldX, this.nextMapPack.worldY);
@@ -336,7 +337,7 @@ export class LevelScene extends Phaser.Scene {
         // if(this.currentMapCollider != null)
         //     this.currentMapCollider.destroy();
         this.physics.world.setBounds(this.nextMapPack.worldX, this.nextMapPack.worldY, this.nextMapPack.width, this.nextMapPack.height);
-        this.nextMapPack.collideLayer.setCollision([2, 3, 5,8]);
+        this.nextMapPack.collideLayer.setCollision([2, 3, 5, 8, 10]);
         this.currentMap = nLevel.identifier;
         C.gd.CurrentLevel = nLevel.identifier;
         this.nextMapPack.displayLayers.forEach(element => {
@@ -380,6 +381,8 @@ export class LevelScene extends Phaser.Scene {
         // if(this.currentMapPack.level.fieldInstances[3].__value != null && C.LastLocationMessage != this.currentMapPack.level.fieldInstances[3].__value) {
         //     new LocationMessage(this.currentMapPack.level.fieldInstances[3].__value, this, this.GuiLayer);
         // }
+
+        this.events.emit(SceneMessages.ScreenTransitionComplete);
 
         this.currentMapPack.collideLayer.layer.data.length;
         this.physics.resume();

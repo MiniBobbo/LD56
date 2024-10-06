@@ -40,8 +40,8 @@ export class MMPickupFSM extends FSMModule {
             this.text = this.mm.scene.add.bitmapText(170,150, '8px', this.PickupDescription).setCenterAlign().setScrollFactor(0,0);
             this.text.x -= this.text.displayWidth/2;
             this.text.y -= (this.text.displayHeight/2);
-            this.text.setTint(0x000000);
-            this.text.postFX.addGlow();
+            this.text.setTint(0xffffff);
+            this.text.postFX.addGlow(0x000000,1,0,false, 1,5);
             this.mm.on(EntityMessages.TRY_ATTACK, ()=> {this.mm.changeFSM('move')}, this);
             this.mm.gs.GuiLayer.add(this.image);
             this.mm.gs.GuiLayer.add(this.text);

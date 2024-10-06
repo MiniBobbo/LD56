@@ -443,7 +443,7 @@ export interface EntityInstance {
 
 export interface FieldInstance {
     __identifier:     string;
-    __value:          string;
+    __value:          any;
     __type:           string;
     defUid:           number;
     realEditorValues: RealEditorValue[];

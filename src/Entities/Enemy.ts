@@ -58,6 +58,7 @@ export class Enemy extends Entity {
         if(this.hp == 0) {
             this.shadow.emit('dead');
             this.isDead = true;
+            this.gs.events.emit(SceneMessages.EnemyDead, this.sprite.name);
         }
     }
 
