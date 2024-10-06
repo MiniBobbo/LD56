@@ -1,3 +1,4 @@
 export enum EffectTypes {
-Generic = 'generic'
+Generic = 'generic',
+Poof = 'poof',
 }

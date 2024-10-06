@@ -1,4 +1,5 @@
 import { C } from "../C";
+import { EffectManager } from "../effects/EffectManager";
 import { Pillbug } from "../Entities/Enemies/Pillbug";
 import { MM } from "../Entities/MM";
 import { GameData } from "../GameData";
@@ -84,6 +85,7 @@ export class Preload extends Phaser.Scene {
 
         MM.CreateAnimations(this);
         Pillbug.CreateAnimations(this);
+        EffectManager.CreateAnimations(this);
 
         IH.AddVirtualInput(IHVI.Up);
         IH.AddVirtualInput(IHVI.Down);

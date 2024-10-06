@@ -1,15 +1,23 @@
 export class GuiScene extends Phaser.Scene {
     cheeses:Phaser.GameObjects.Image[];
-
+    weapon:Phaser.GameObjects.Image;
     create() {
         this.cameras.main.setBackgroundColor(0x000000)
         .setSize(100, 300)
         .setPosition(348,5);
         this.add.nineslice(0,0, '9box', null, 100, 300, 6,6,6,6).setOrigin(0,0);
-        this.add.bitmapText(10,10, '6px', '- LIFE -', 12)
+        let lifeText = this.add.bitmapText(10,10, '6px', '- LIFE -', 12)
         // .setScale(1.5)
         .setTint(0xff0000)
         .setCenterAlign();
+        lifeText.x = (100 - lifeText.displayWidth) / 2;
+        let weaponText = this.add.bitmapText(25,70, '6px', '- WEAPON -', 12)
+        // .setScale(1.5)
+        .setTint(0xff0000);
+        weaponText.x = (100 - weaponText.displayWidth) / 2;
+        this.weapon = this.add.image(40, 90, 'atlas', 'Stick_0');
+        this.weapon.postFX.addGlow();
+
 
         this.cheeses = [];
         for(let i =0; i < 8; i++) {

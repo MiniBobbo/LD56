@@ -1,7 +1,9 @@
 import { AttackInstance } from "../attacks/AttackInstance";
 import { C } from "../C";
 import { AttackTypes } from "../enums/AttackTypes";
+import { EffectTypes } from "../enums/EffectTypes";
 import { EntityMessages } from "../enums/EntityMessages";
+import { SceneMessages } from "../enums/SceneMessages";
 import { LevelScene } from "../scenes/LevelScene";
 import { Entity, FacingEnum } from "./Entity";
 
@@ -59,6 +61,12 @@ export class Enemy extends Entity {
 
     HitByStick() {
         this.shadow.emit(EntityMessages.TAKE_DAMAGE, 1);
+    }
+
+    Dead() {
+        super.Dead();
+        this.scene.events.emit(SceneMessages.Effect, {x:this.sprite.x+10, y:this.sprite.y}, EffectTypes.Poof);
+
     }
 
 }

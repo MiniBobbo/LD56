@@ -1,7 +1,9 @@
 import { AttackInstance } from "../attacks/AttackInstance";
 import { C } from "../C";
 import { AttackTypes } from "../enums/AttackTypes";
+import { EffectTypes } from "../enums/EffectTypes";
 import { EntityMessages } from "../enums/EntityMessages";
+import { SceneMessages } from "../enums/SceneMessages";
 import { MMAttackFSM } from "../FSM/PlayerFSM/MMAttackFSM";
 import { MMGroundFSM } from "../FSM/PlayerFSM/MMGroundFSM";
 import { MMKnockbackFSM } from "../FSM/PlayerFSM/MMKnockbackFSM";

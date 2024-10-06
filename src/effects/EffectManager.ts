@@ -1,4 +1,5 @@
 import { EffectTypes } from "../enums/EffectTypes";
+import { SceneMessages } from "../enums/SceneMessages";
 import { LevelScene } from "../scenes/LevelScene";
 
 export class EffectManager {
@@ -9,33 +10,36 @@ export class EffectManager {
     constructor(scene:LevelScene) {
         this.scene = scene;
         this.EffectGroup = [];
+        this.scene.events.on(SceneMessages.Effect, (o:{x:number, y:number}, type:EffectTypes)=> {
+            this.LaunchEffect(o, type);
+        });
     }
     
-    LaunchEffect(origin:{x:number, y:number, right:boolean}, type:EffectTypes) {
+    LaunchEffect(origin:{x:number, y:number}, type:EffectTypes) {
         let a = this.EffectGroup.find(e=>!e.anims.isPlaying);  
         if(a == undefined) {
             a = this.scene.add.sprite(0,0,'atlas', 0);
             this.EffectGroup.push(a);
             this.scene.Midground.add(a);
-            a.setData('AttackInstance', a);
         }
 
-        a.setAngle(0).setFlip(false, false).setScale(1,1).setDepth(10).setVisible(true);
+        a.setAngle(0).setFlip(false, false).setScale(1,1).setDepth(origin.y).setVisible(true);
         a.once('animationcomplete', ()=>{a.setVisible(false)});
 
         switch (type) {
-            case EffectTypes.Generic:
-                a.setPosition(origin.x + 6, origin.y + 6)
-                .setScale(2,2)
-                .setFlipX(!origin.right)
-                .setDepth(100)
-                .anims.play('poof')
-                ;
+            case EffectTypes.Poof:
+                a.setPosition(origin.x, origin.y)
+                .anims.play(type);
                 break;
         
             default:
                 break;
         }
+
+    }
+
+    static CreateAnimations(scene:Phaser.Scene) { 
+        scene.anims.create({ key: EffectTypes.Poof, frameRate: 90, frames: scene.anims.generateFrameNames('atlas', { prefix: 'poof_', end: 31}), repeat: 0});
 
     }
 }
