@@ -51,6 +51,7 @@ export class Enemy extends Entity {
         if(this.flashing)
             return;
         this.Flash(C.SHORT_FLASH);
+        this.fsm.changeModule('knockback', this.gs.mm.shadow.getCenter());
         this.hp -= damage;
         this.hp = Phaser.Math.Clamp(this.hp, 0, this.maxhp);
         this.shadow.emit(EntityMessages.CHANGE_HP, this.hp, this.maxhp);

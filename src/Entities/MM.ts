@@ -51,8 +51,7 @@ export class MM extends Entity {
             this.PointerAngleDeg = Phaser.Math.RadToDeg(Phaser.Math.Angle.BetweenPoints(this.shadow, p));
             this.scene.events.emit('debug', `Pointer angle: ${this.PointerAngleDeg}`, true);
         }, this);
-
-        this.emit(EntityMessages.CHANGE_HP, 5,5);
+        
     }
 
 

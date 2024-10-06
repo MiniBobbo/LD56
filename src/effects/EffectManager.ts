@@ -28,7 +28,7 @@ export class EffectManager {
 
         switch (type) {
             case EffectTypes.Poof:
-                a.setPosition(origin.x, origin.y)
+                a.setPosition(origin.x, origin.y).setScale(2)
                 .anims.play(type);
                 break;
         

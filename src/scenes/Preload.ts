@@ -1,4 +1,5 @@
 import { C } from "../C";
+import { WiseRat } from "../Cutscenes/WiseRat";
 import { EffectManager } from "../effects/EffectManager";
 import { Ant } from "../Entities/Enemies/Ant";
 import { Bush } from "../Entities/Enemies/Bush";
@@ -92,6 +93,7 @@ export class Preload extends Phaser.Scene {
         Pillbug.CreateAnimations(this);
         Ant.CreateAnimations(this);
         Bush.CreateAnimations(this);
+        WiseRat.CreateAnimations(this);
         EffectManager.CreateAnimations(this);
 
         IH.AddVirtualInput(IHVI.Up);

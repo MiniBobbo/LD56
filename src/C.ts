@@ -21,6 +21,7 @@ export class C {
     static STICK_VELOCITY:number = 200;
 
     static KNOCKBACK_DURATION:number = 500;
+    static ENEMY_KNOCKBACK_DURATION:number = 200;
 
     static checkFlag(flag:string):boolean {
         //@ts-ignore

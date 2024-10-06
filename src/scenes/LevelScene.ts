@@ -243,6 +243,8 @@ export class LevelScene extends Phaser.Scene {
 
     }
 
+    transitionDistance:number = 25;
+
     /**
      * Tries to transition the map to a new location.  This should be called when the player moves off the screen in a direction
      * 
@@ -267,19 +269,19 @@ export class LevelScene extends Phaser.Scene {
         switch (direction) {
             case 'e':
                 sx += cam.width;
-                px += 15;
+                px += this.transitionDistance;
                 break;
             case 'w':
                 sx -= cam.width;
-                px -= 15;
+                px -= this.transitionDistance;;
                 break;
             case 'n':
                 sy -= cam.height;
-                py -= 15;
+                py -= this.transitionDistance;;
                 break;
             case 's':
                 sy += cam.height;
-                py += 15;
+                py += this.transitionDistance;;
                 break;
         
             default:
@@ -334,7 +336,7 @@ export class LevelScene extends Phaser.Scene {
         // if(this.currentMapCollider != null)
         //     this.currentMapCollider.destroy();
         this.physics.world.setBounds(this.nextMapPack.worldX, this.nextMapPack.worldY, this.nextMapPack.width, this.nextMapPack.height);
-        this.nextMapPack.collideLayer.setCollision([2, 3, 5]);
+        this.nextMapPack.collideLayer.setCollision([2, 3, 5,8]);
         this.currentMap = nLevel.identifier;
         C.gd.CurrentLevel = nLevel.identifier;
         this.nextMapPack.displayLayers.forEach(element => {
@@ -373,6 +375,7 @@ export class LevelScene extends Phaser.Scene {
         // this.cameras.main.startFollow(this.mm.sprite);
 
         this.cameras.main.setScroll(this.currentMapPack.worldX, this.currentMapPack.worldY);
+        this.physics.world.setBounds(this.currentMapPack.worldX, this.currentMapPack.worldY, this.currentMapPack.width, this.currentMapPack.height);
 
         // if(this.currentMapPack.level.fieldInstances[3].__value != null && C.LastLocationMessage != this.currentMapPack.level.fieldInstances[3].__value) {
         //     new LocationMessage(this.currentMapPack.level.fieldInstances[3].__value, this, this.GuiLayer);
@@ -429,7 +432,13 @@ export class LevelScene extends Phaser.Scene {
                 let nlevel = this.reader.GetLevelFromName(C.gd.SaveLevel);
                 this.cameras.main.stopFollow();
                 this.CreateNextMap(nlevel);
-            this.EndScreenTransition();
+                let entryPoint = this.nextMapPack.entityLayers.entityInstances.find(e=>e.__identifier == 'EntryPoint' && e.fieldInstances[0].__value == 'Main'); 
+                this.mm.shadow.setPosition(entryPoint.px[0] + this.nextMapPack.worldX + 10, entryPoint.px[1] + this.nextMapPack.worldY + 10);
+    
+
+                this.EndScreenTransition();
+                this.mm.hp = this.mm.maxhp;
+                this.guiScene.events.emit(EntityMessages.CHANGE_HP, this.mm.hp, this.mm.maxhp);
             }
         
         },this);

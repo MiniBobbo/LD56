@@ -17,11 +17,11 @@ export class GuiScene extends Phaser.Scene {
         .setTint(0xff0000)
         .setCenterAlign();
         lifeText.x = (100 - lifeText.displayWidth) / 2;
-        let weaponText = this.add.bitmapText(25,70, '6px', '- WEAPON -', 12)
+        let weaponText = this.add.bitmapText(25,90, '6px', '- WEAPON -', 12)
         // .setScale(1.5)
         .setTint(0xff0000);
         weaponText.x = (100 - weaponText.displayWidth) / 2;
-        this.weapon = this.add.image(30, 90, 'atlas', 'Stick_0');
+        this.weapon = this.add.image(30, 110, 'atlas', 'Stick_0').setVisible(false);
         this.weapon.postFX.addGlow();
         let keyText = this.add.bitmapText(25,260, '6px', '- KEYS -', 12)
         // .setScale(1.5)
@@ -52,21 +52,18 @@ export class GuiScene extends Phaser.Scene {
             y: 270
         });
 
-        this.weapon = this.add.image(30, 90, 'atlas', 'Stick_0');
-        this.weapon.postFX.addGlow();
-
 
         this.cheeses = [];
-        for(let i =0; i < 6; i++) {
+        for(let i =0; i < 12; i++) {
             let c = this.add.image(0,0,'atlas', 'Icons_1');
             this.cheeses.push(c);
         }
 
         Phaser.Actions.GridAlign(this.cheeses, {
-            width: 3,
-            height: 2,
-            cellWidth: 30,
-            cellHeight: 25,
+            width: 4,
+            height: 3,
+            cellWidth: 20,
+            cellHeight: 20,
             x: 10,
             y: 20
         });

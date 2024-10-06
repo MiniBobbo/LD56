@@ -14,6 +14,8 @@ import { Ant } from "../Entities/Enemies/Ant";
 import { Bush } from "../Entities/Enemies/Bush";
 import { Chest } from "../Entities/Chest";
 import { Key } from "../Entities/Key";
+import { WiseRat } from "../Cutscenes/WiseRat";
+import { AppearText } from "../Cutscenes/AppearText";
 
 export class SetupMapHelper {
     static CurrentCollider:Phaser.Physics.Arcade.Collider;
@@ -72,6 +74,16 @@ export class SetupMapHelper {
                         let ant = new Ant(gs);
                         ant.shadow.setPosition(worldposition.x, worldposition.y);
                         mo.mapEntities.push(ant);
+                break;
+                case 'WiseRat':
+                        let wr = new WiseRat('WiseRat', gs, element);
+                        wr.shadow.setPosition(worldposition.x, worldposition.y);
+                        mo.mapEntities.push(wr);
+                break;
+                case 'AppearText':
+                        let at = new AppearText('AppearText', gs, element);
+                        at.shadow.setPosition(worldposition.x, worldposition.y);
+                        mo.mapEntities.push(at);
                 break;
                 case 'Bush':
                         let bush = new Bush(gs);
