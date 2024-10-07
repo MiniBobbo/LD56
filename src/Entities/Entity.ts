@@ -57,7 +57,9 @@ export class Entity {
         this.sprite.setData('Entity', this);
         this.shadow.setData('Entity', this);
         this.sprite.setDepth(50);
+        this.shadow.setDepth(49);
         scene.Midground.add(this.sprite);
+        scene.Background.add(this.shadow);
         this.fsm = new FSM(this);
 
 
@@ -70,6 +72,7 @@ export class Entity {
         // this.scene.events.on('update',this.Update, this)
         this.scene.events.on('travel',() => {this.fsm.clearModule();}, this);
         this.scene.events.on('preupdate', this.Update, this);
+        this.scene.events.on('postupdate', this.PostUpdate, this);
 
 
 
@@ -84,6 +87,10 @@ export class Entity {
             paused:true,
             duration:100
         })
+    }
+    PostUpdate() {
+        this.sprite.setPosition(this.shadow.x, this.shadow.y - this.Z - this.HeightOffset);
+        this.sprite.setDepth(this.shadow.y);
     }
 
     setName(name:string) {
@@ -122,6 +129,7 @@ export class Entity {
     dispose() {
         this.sprite.removeListener(EntityMessages.ACCELERATE, this.AddExternalAcceleration, this);
         this.scene.events.removeListener('preupdate',this.Update, this);
+        this.scene.events.removeListener('postupdate', this.PostUpdate, this);
         this.scene.events.removeListener('travel',() => {this.fsm.clearModule();}, this);
         this.sprite.destroy();
         this.shadow.destroy();
@@ -144,8 +152,6 @@ export class Entity {
 
 
 
-        this.sprite.setPosition(this.shadow.x, this.shadow.y - this.Z - this.HeightOffset);
-        this.sprite.setDepth(this.shadow.y);
 
 
         if(this.flashing) {

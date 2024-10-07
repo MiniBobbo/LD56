@@ -85,6 +85,24 @@ export class GuiScene extends Phaser.Scene {
 
         let gs = this.scene.get('level') as LevelScene;
         this.ChangeHP(3,3);
+
+        this.MakeSwiss();
+    }
+
+    swiss:Phaser.GameObjects.Image[] = [];
+    swissStart:number = 190;
+    MakeSwiss() {
+        let swissText = this.add.bitmapText(25,150, '6px', '- THE SACRED SWISS -', 12)
+        // .setScale(1.5)
+        .setTint(0xff0000);
+        swissText.x = (100 - swissText.displayWidth) / 2;
+        let s1 = this.add.image(51,this.swissStart, 'atlas', 'SacredSwiss_0');
+        let s2 = this.add.image(30,this.swissStart+40, 'atlas', 'SacredSwiss_0');
+        let s3 = this.add.image(70,this.swissStart+40, 'atlas', 'SacredSwiss_0');
+        this.swiss.push(s1);
+        this.swiss.push(s2);
+        this.swiss.push(s3);
+
     }
 
     ChangeHP(hp:number, maxhp:number) {
@@ -99,7 +117,16 @@ export class GuiScene extends Phaser.Scene {
                 this.cheeses[i].setVisible(false);
             }
         }
+    }
 
+    ChangeSwissNumber(count:number) {
+        for(let i = 0; i < 3; i++) {
+            if(i < count) {
+                this.swiss[i].setFrame('SacredSwiss_1');
+            } else {
+                this.swiss[i].setFrame('SacredSwiss_0');
+            }        
+        }
     }
 }
 

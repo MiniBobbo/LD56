@@ -1,4 +1,4 @@
 export enum AttackTypes {
-    Generic,
-    Stick,
+    Generic = 'Generic' ,
+    Fireball = 'Fireball' ,
 }

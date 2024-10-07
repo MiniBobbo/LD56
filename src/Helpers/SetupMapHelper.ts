@@ -20,6 +20,7 @@ import { BlockerKill } from "../Entities/Enemies/BlockerKill";
 import { RedAnt } from "../Entities/Enemies/RedAnt";
 import { BlockerTrigger } from "../Entities/Enemies/BlockerTrigger";
 import { BlockerKey } from "../Entities/Enemies/BlockerKey";
+import { QueenAnt } from "../Entities/Enemies/QueenAnt";
 
 export class SetupMapHelper {
     static CurrentCollider:Phaser.Physics.Arcade.Collider;
@@ -88,6 +89,13 @@ export class SetupMapHelper {
                         let redant = new RedAnt(gs);
                         redant.shadow.setPosition(worldposition.x, worldposition.y);
                         mo.mapEntities.push(redant);
+                break;
+                case 'Boss':
+                        if(!C.gd.IDsCollected.includes(element.fieldInstances[0].__value)) {
+                            let queen = new QueenAnt(gs, element);
+                            queen.shadow.setPosition(worldposition.x, worldposition.y);
+                            mo.mapEntities.push(queen);
+                        }
                 break;
                 case 'WiseRat':
                         let wr = new WiseRat('WiseRat', gs, element);

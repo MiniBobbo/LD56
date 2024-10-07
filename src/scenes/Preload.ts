@@ -1,3 +1,4 @@
+import { AttackManager } from "../attacks/AttackManager";
 import { C } from "../C";
 import { WiseRat } from "../Cutscenes/WiseRat";
 import { EffectManager } from "../effects/EffectManager";
@@ -5,6 +6,7 @@ import { Ant } from "../Entities/Enemies/Ant";
 import { BlockerKill } from "../Entities/Enemies/BlockerKill";
 import { Bush } from "../Entities/Enemies/Bush";
 import { Pillbug } from "../Entities/Enemies/Pillbug";
+import { QueenAnt } from "../Entities/Enemies/QueenAnt";
 import { RedAnt } from "../Entities/Enemies/RedAnt";
 import { MM } from "../Entities/MM";
 import { GameData } from "../GameData";
@@ -96,8 +98,10 @@ export class Preload extends Phaser.Scene {
         Ant.CreateAnimations(this);
         RedAnt.CreateAnimations(this);
         Bush.CreateAnimations(this);
+        QueenAnt.CreateAnimations(this);
         BlockerKill.CreateAnimations(this);
         WiseRat.CreateAnimations(this);
+        AttackManager.CreateAnimations(this);
         EffectManager.CreateAnimations(this);
 
         IH.AddVirtualInput(IHVI.Up);

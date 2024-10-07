@@ -23,7 +23,7 @@ export class MM extends Entity {
     attackSprite:Phaser.GameObjects.Sprite;
     PointerAngleDeg:number;
 
-    HasStick:boolean = false;
+    HasStick:boolean = true;
 
     private attackCooldown:number = 0;
     constructor(scene:LevelScene, ih:IH) {
@@ -57,7 +57,7 @@ export class MM extends Entity {
 
     HitByAttack(a:AttackInstance): void {
         a.dead();
-        this.sprite.emit(EntityMessages.TAKE_DAMAGE, a.damage);
+        this.shadow.emit(EntityMessages.TAKE_DAMAGE, a.damage, a.s.getCenter());
     }
 
     Damage(damage: number, attackLocation:Phaser.Math.Vector2): void {
@@ -95,7 +95,7 @@ export class MM extends Entity {
         let interacted:boolean = false;
         targets.forEach(element => {
             let e = element.gameObject.getData('Entity') as Entity;
-            if(!e.isDead && e.Interactable) {
+            if(e != undefined && !e.isDead && e.Interactable) {
                 e.Interact();
                 interacted = true;
             }
