@@ -62,7 +62,7 @@ export class LevelScene extends Phaser.Scene {
     create(levelData:{levelName:string}) {
 
         this.cameras.main.setSize(340,300).setBackgroundColor(0xff0000).setPosition(5,5);
-        this.PointerOffset = {x:0, y:0};
+        this.PointerOffset = {x:150, y:150};
         this.Pointer = this.add.image(150,150, 'pointer').setDepth(1000).setScrollFactor(0,0);
         this.input.on('pointerdown', (pointer) => {
 
@@ -442,6 +442,7 @@ export class LevelScene extends Phaser.Scene {
                 this.EndScreenTransition();
                 this.mm.hp = this.mm.maxhp;
                 this.guiScene.events.emit(EntityMessages.CHANGE_HP, this.mm.hp, this.mm.maxhp);
+                this.mm.changeFSM('move');
             }
         
         },this);

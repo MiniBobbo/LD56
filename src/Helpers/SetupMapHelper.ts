@@ -21,6 +21,7 @@ import { RedAnt } from "../Entities/Enemies/RedAnt";
 import { BlockerTrigger } from "../Entities/Enemies/BlockerTrigger";
 import { BlockerKey } from "../Entities/Enemies/BlockerKey";
 import { QueenAnt } from "../Entities/Enemies/QueenAnt";
+import { SacredSwiss } from "../Entities/SacredSwiss";
 
 export class SetupMapHelper {
     static CurrentCollider:Phaser.Physics.Arcade.Collider;
@@ -101,6 +102,14 @@ export class SetupMapHelper {
                         let wr = new WiseRat('WiseRat', gs, element);
                         wr.shadow.setPosition(worldposition.x, worldposition.y);
                         mo.mapEntities.push(wr);
+                break;
+                case 'SacredSwiss':
+                        if(!C.gd.IDsCollected.includes(element.iid)) {
+                            let ss = new SacredSwiss(gs, element);
+                            ss.shadow.setPosition(worldposition.x, worldposition.y);
+                            mo.mapEntities.push(ss);
+                            maps.collideLayer.putTileAtWorldXY(5, worldposition.x, worldposition.y);
+                        }
                 break;
                 case 'AppearText':
                         let at = new AppearText('AppearText', gs, element);

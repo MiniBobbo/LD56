@@ -84,7 +84,7 @@ export class GuiScene extends Phaser.Scene {
         });
 
         let gs = this.scene.get('level') as LevelScene;
-        this.ChangeHP(3,3);
+        this.ChangeHP(8,8);
 
         this.MakeSwiss();
     }

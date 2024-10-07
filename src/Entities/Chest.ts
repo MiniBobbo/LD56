@@ -71,10 +71,8 @@ export class Chest extends Entity {
 
         this.sprite.setFrame('Chest_1');
         C.gd.keys[this.KeyNum]--;
-        C.gd.keys[this.KeyNum]--;
         this.gs.mm.changeFSM('pickup', [frame, message ]);
         C.gd.IDsCollected.push(this.ID);
-        C.gd.keys[this.KeyNum]--;
         this.gs.guiScene.events.emit(GuiEvents.UPDATE_KEYS);
         this.gs.guiScene.events.emit(EntityMessages.CHANGE_HP, this.gs.mm.hp, C.gd.MaxHP);
         

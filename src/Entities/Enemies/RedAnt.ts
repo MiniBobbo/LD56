@@ -14,7 +14,7 @@ export class RedAnt extends Enemy {
         this.shadow.setCollideWorldBounds(true);
         this.shadow.setVelocityX(0);
         this.fsm.addModule('default', new RedAntFSM(this, this.fsm));
-        // this.fsm.addModule('knockback', new EnemyKnockbackFSM(this, this.fsm));
+        this.fsm.addModule('knockback', new EnemyKnockbackFSM(this, this.fsm));
         this.changeFSM('default');
     }
 

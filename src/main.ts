@@ -6,6 +6,7 @@ import { MainMenuScene } from "./scenes/MainMenuScene";
 import MergedInput from "phaser3-merged-input";
 import { LevelScene } from "./scenes/LevelScene";
 import { GuiScene } from "./scenes/GuiScene";
+import { VictoryScene } from "./scenes/VictoryScene";
 
 
 class Main extends Phaser.Game {
@@ -41,6 +42,7 @@ class Main extends Phaser.Game {
     this.scene.add("preload", Preload, false);
     this.scene.add("menu", MainMenuScene, false);
     this.scene.add('level', LevelScene, false);
+    this.scene.add('victory', VictoryScene, false);
     this.scene.add('gui', GuiScene, false);
 
     // this.scene.add("level", LevelScene, false);

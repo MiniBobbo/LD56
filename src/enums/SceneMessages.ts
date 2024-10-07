@@ -1,7 +1,7 @@
 export enum SceneMessages {
     HitCheckpoint = 'hitcheckpoint',
     Effect = "Effect",   
-    SOUND = "SOUND",
+    SOUND = "Sound",
     EnemyDead = "EnemyDead",
     ScreenTransitionComplete = "ScreenTransitionComplete",
     Trigger = "Trigger"

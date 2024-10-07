@@ -28,7 +28,7 @@ export class MM extends Entity {
     private attackCooldown:number = 0;
     constructor(scene:LevelScene, ih:IH) {
         super(scene);
-        // this.hp = this.maxhp = 10;
+        this.hp = this.maxhp = 8;
         this.ih = ih;
         this.setName('Mouse');
         this.PlayAnimation('Stand');
@@ -70,6 +70,8 @@ export class MM extends Entity {
         if(this.hp <=0) {
             // this.gs.physics.pause();
             this.gs.events.emit(EntityMessages.PLAYER_DEAD);
+            this.changeFSM('end');
+            this.flashingRemaining = 2000;
         }
     }
 

@@ -71,7 +71,7 @@ export class Preload extends Phaser.Scene {
             percentText.destroy();
             assetText.destroy();
             //@ts-ignore
-            this.scene.start('level');
+            this.scene.start('menu');
             //@ts-ignore
             // this.scene.launch('gui');
 
