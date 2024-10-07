@@ -130,7 +130,7 @@ export class SetupMapHelper {
                         let blockKey = new BlockerKey(gs, element);
                         blockKey.shadow.setPosition(worldposition.x, worldposition.y);
                         mo.mapEntities.push(blockKey);
-                        maps.collideLayer.putTileAtWorldXY(1, worldposition.x, worldposition.y);
+                        maps.collideLayer.putTileAtWorldXY(5, worldposition.x, worldposition.y);
                 break;
                 case 'Travel':
                         let travelPoint = new TravelPoint(gs, element, element.fieldInstances[0].__value, element.fieldInstances[1].__value);

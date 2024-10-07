@@ -34,6 +34,7 @@ export class BlockerTrigger extends Enemy {
 
     dispose(): void {
         this.gs.events.off(SceneMessages.ScreenTransitionComplete, this.Raise, this);
+        this.gs.events.off(SceneMessages.Trigger, this.Trigger, this);
     }
 
     HitByAttack(a: AttackInstance): void {
@@ -45,13 +46,21 @@ export class BlockerTrigger extends Enemy {
 
     Raise() {
         this.PlayAnimation('Raise');
+        console.log('Raising Blocker');
+
         this.gs.currentMapPack.collideLayer.putTileAtWorldXY(5, this.shadow.x, this.shadow.y);
 
     }
 
     Lower() {
         this.PlayAnimation('Lower');
+        console.log('Lowering Blocker');
         this.gs.currentMapPack.collideLayer.putTileAtWorldXY(1, this.shadow.x, this.shadow.y);
+    }
+
+    PostUpdate(): void {
+        super.PostUpdate();
+        this.sprite.setDepth(this.shadow.y-1000);
     }
 
 

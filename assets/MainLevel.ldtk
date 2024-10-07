@@ -16295,7 +16295,28 @@
 					"seed": 7116714,
 					"overrideTilesetUid": null,
 					"gridTiles": [],
-					"entityInstances": []
+					"entityInstances": [
+						{
+							"__identifier": "Key",
+							"__grid": [8,7],
+							"__pivot": [0,0],
+							"__tags": [],
+							"__tile": null,
+							"__smartColor": "#FEAE34",
+							"iid": "52ecec40-73f0-11ef-aaa4-cfcbd08abf94",
+							"width": 20,
+							"height": 20,
+							"defUid": 126,
+							"px": [160,140],
+							"fieldInstances": [
+								{ "__identifier": "Flag", "__type": "Int", "__value": 0, "__tile": null, "defUid": 130, "realEditorValues": [] },
+								{ "__identifier": "Type", "__type": "Int", "__value": 1, "__tile": null, "defUid": 128, "realEditorValues": [{ "id": "V_Int", "params": [1] }] },
+								{ "__identifier": "Description", "__type": "String", "__value": null, "__tile": null, "defUid": 132, "realEditorValues": [] }
+							],
+							"__worldX": 1860,
+							"__worldY": -1060
+						}
+					]
 				},
 				{
 					"__identifier": "Mg",

@@ -55,6 +55,11 @@ export class BlockerKill extends Enemy {
         this.gs.currentMapPack.collideLayer.putTileAtWorldXY(1, this.shadow.x, this.shadow.y);
     }
 
+    PostUpdate(): void {
+        super.PostUpdate();
+        this.sprite.setDepth(this.shadow.y-1000);
+    }
+
 
     Dead() {
     }

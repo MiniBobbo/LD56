@@ -29,7 +29,6 @@ export class LevelScene extends Phaser.Scene {
     IntMaps:Phaser.Physics.Arcade.Group;
     CurrentMapObjects:MapObjects;
     NextMapObjects:MapObjects;
-    checkpointEmitter:Phaser.GameObjects.Particles.ParticleEmitter;
 
     Paused:boolean = false;
 
@@ -146,21 +145,21 @@ export class LevelScene extends Phaser.Scene {
         //@ts-ignore
         this.physics.add.overlap(this.CollideEnemy, this.Enemies, (a:Phaser.Physics.Arcade.Sprite, e:Phaser.Physics.Arcade.Sprite)=>{
             e.emit(EntityMessages.HIT_BY_ATTACK, a.getData('AttackInstance') as AttackInstance);
-        });
+        }).setName('Things that hit enemies');
 
         //@ts-ignore
         this.physics.add.overlap(this.CollidePlayer, this.Players, (a:Phaser.Physics.Arcade.Sprite, e:Phaser.Physics.Arcade.Sprite)=>{
             e.emit(EntityMessages.HIT_BY_ATTACK, a.getData('AttackInstance') as AttackInstance);
-        });
+        }).setName('Things that hit player');
         //@ts-ignore
         this.physics.add.overlap(this.Enemies, this.Players, (a:Phaser.Physics.Arcade.Sprite, e:Phaser.Physics.Arcade.Sprite)=>{
             a.emit(EntityMessages.OVERLAP_PLAYER);
             e.emit(EntityMessages.OVERLAP_PLAYER);
-        });
+        }).setName('Enemies and players overlap');
         //@ts-ignore
         this.physics.add.overlap(this.Powerups, this.Players, (powerup:Phaser.Physics.Arcade.Sprite, player:Phaser.Physics.Arcade.Sprite)=>{
             powerup.emit(EntityMessages.OVERLAP_PLAYER);
-        });
+        }).setName('Powerups overlap player');
 
         //Add gui stuff
 
@@ -334,8 +333,8 @@ export class LevelScene extends Phaser.Scene {
     CreateNextMap(nLevel:Level) {
         // this.Map.ExploreLevel(nLevel.identifier);
         this.nextMapPack = this.reader.CreateMap(nLevel.identifier, 'mapts');
-        // if(this.currentMapCollider != null)
-        //     this.currentMapCollider.destroy();
+        if(this.currentMapCollider != null)
+            this.currentMapCollider.destroy();
         this.physics.world.setBounds(this.nextMapPack.worldX, this.nextMapPack.worldY, this.nextMapPack.width, this.nextMapPack.height);
         this.nextMapPack.collideLayer.setCollision([2, 3, 5, 8, 10]);
         this.currentMap = nLevel.identifier;
@@ -359,11 +358,12 @@ export class LevelScene extends Phaser.Scene {
         // this.IntMaps.add(this.nextMapPack.collideLayer);
         let level = this.reader.ldtk.levels.find((l: any) => l.identifier === nLevel.identifier);
 
-        this.currentMapCollider = this.physics.add.collider(this.CollideMap, this.nextMapPack.collideLayer);
+        this.currentMapCollider = this.physics.add.collider(this.CollideMap, this.nextMapPack.collideLayer).setName('Things that collide with the map');
 
         }
 
     EndScreenTransition() {
+        console.log('EndScreenTransition');
         if(this.currentMapPack != null) {
             this.IntMaps.remove(this.currentMapPack.collideLayer);
             this.currentMapPack.Destroy();
