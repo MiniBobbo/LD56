@@ -1,5 +1,6 @@
 import MergedInput, { Player } from "phaser3-merged-input";
 import { GameData } from "./GameData";
+import { SM } from "./Helpers/SoundManager";
 
 export class C {
     static GAME_NAME = 'InitialGame';
@@ -14,7 +15,7 @@ export class C {
     static SHORT_FLASH:number = 200;
     static MOUSE_SENSITIVITY:number = .8;
 
-
+    static sm:SM;
     static KNOCKBACK:number = 50;
 
     static SCREEN_TRANSITION_TIME:number = 500;

@@ -1,3 +1,4 @@
+import { Sound } from "phaser";
 import { AttackManager } from "../attacks/AttackManager";
 import { C } from "../C";
 import { WiseRat } from "../Cutscenes/WiseRat";
@@ -11,6 +12,7 @@ import { RedAnt } from "../Entities/Enemies/RedAnt";
 import { MM } from "../Entities/MM";
 import { GameData } from "../GameData";
 import { GamepadButtons, IH, IHVI } from "../IH/IH";
+import { SM } from "../Helpers/SoundManager";
 
 export class Preload extends Phaser.Scene {
     preload() {
@@ -93,6 +95,8 @@ export class Preload extends Phaser.Scene {
     create() {
         C.gd = new GameData();
 
+        C.sm = new SM(this);
+
         MM.CreateAnimations(this);
         Pillbug.CreateAnimations(this);
         Ant.CreateAnimations(this);
@@ -103,6 +107,8 @@ export class Preload extends Phaser.Scene {
         WiseRat.CreateAnimations(this);
         AttackManager.CreateAnimations(this);
         EffectManager.CreateAnimations(this);
+
+        SM.LoadSounds(this);
 
         IH.AddVirtualInput(IHVI.Up);
         IH.AddVirtualInput(IHVI.Down);

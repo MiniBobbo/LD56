@@ -2,6 +2,7 @@ import Phaser from "phaser";
 import MergedInput, { Player } from "phaser3-merged-input";
 import { C } from "../C";
 import { LevelScene } from "./LevelScene";
+import { SFX, SM } from "../Helpers/SoundManager";
 
 export class MainMenuScene extends Phaser.Scene {
     Title:Phaser.GameObjects.BitmapText;
@@ -23,6 +24,9 @@ export class MainMenuScene extends Phaser.Scene {
             C.gd = JSON.parse(localStorage.getItem(C.GAME_NAME));
 
         }
+
+        C.sm = new SM(this);
+        C.sm.PlayMusic(SFX.Dungeon);
 
         let  i = this.add.image(20,-20, 'atlas', 'SacredSwiss_2').setOrigin(0,0).setScale(2);
         let glow = i.postFX.addGlow(0xffffbb, 1);

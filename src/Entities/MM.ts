@@ -13,6 +13,7 @@ import { IH } from "../IH/IH";
 import { LevelScene } from "../scenes/LevelScene";
 import { Entity, FacingEnum } from "./Entity";
 import { MMPickupFSM } from "../FSM/PlayerFSM/MMPickupFSM";
+import { SFX } from "../Helpers/SoundManager";
 
 export class MM extends Entity {
     attacking:boolean;
@@ -82,6 +83,7 @@ export class MM extends Entity {
 
 
     TryAttack() {
+        this.gs.sound.play(SFX.Stick);
         if(this.attackCooldown > 0)
             return;
         //First, try to interact
