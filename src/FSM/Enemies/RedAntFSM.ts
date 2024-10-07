@@ -38,7 +38,8 @@ export class RedAntFSM extends FSMModule {
                 } else {
                     this.RedAnt.sprite.flipX = true;
                 }
-            this.delay -= dt;
+                this.delay -= dt;
+                this.RedAnt.PlayAnimation('Walk');
                 this.RedAnt.shadow.setAcceleration(0,0);
                 this.RedAnt.gs.physics.accelerateToObject(this.RedAnt.shadow, this.RedAnt.gs.mm.shadow, 120);
                 if(this.RedAnt.shadow.body.velocity.length() > this.MaxSpeed) 

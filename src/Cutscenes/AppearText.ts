@@ -18,7 +18,7 @@ export class AppearText extends Enemy {
 
         this.text = instance.fieldInstances[0].__value;
         this.display = '';
-        this.bt = this.gs.add.bitmapText(150,80,'8px', '').setMaxWidth(300).setScrollFactor(0,0);
+        this.bt = this.gs.add.bitmapText(150,80,'8px', '').setMaxWidth(250).setScrollFactor(0,0);
         this.position = 0;
 
         this.setName('Appear Text');

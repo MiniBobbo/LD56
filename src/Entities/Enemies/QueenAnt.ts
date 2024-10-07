@@ -1,7 +1,6 @@
 import { QueenAntChargeFSM } from "../../FSM/Enemies/QueenAnt/QueenAntChargeFSM";
 import { QueenAntFireFSM } from "../../FSM/Enemies/QueenAnt/QueenAntFireFSM";
 import { QueenAntWalkFSM } from "../../FSM/Enemies/QueenAnt/QueenAntWalkFSM";
-import { QueenAntFSM } from "../../FSM/Enemies/QueenAntFSM";
 import { EntityInstance } from "../../map/LDtkReader";
 import { LevelScene } from "../../scenes/LevelScene";
 import { Boss } from "./Boss";

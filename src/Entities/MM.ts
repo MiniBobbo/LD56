@@ -23,7 +23,7 @@ export class MM extends Entity {
     attackSprite:Phaser.GameObjects.Sprite;
     PointerAngleDeg:number;
 
-    HasStick:boolean = true;
+    HasStick:boolean = false;
 
     private attackCooldown:number = 0;
     constructor(scene:LevelScene, ih:IH) {

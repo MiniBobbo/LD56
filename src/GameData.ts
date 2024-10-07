@@ -7,9 +7,9 @@ export class GameData {
     brokenBlocks:Array<{level:string, x:number, y:number}>;
     CollectedPowerups:Array<{level:string, type:PowerTypes}>;
     ExploredLevels:string[];
-    MaxHP:number = 8;
-    CurrentLevel:string = 'Level_21';
-    SaveLevel:string = 'Level_21';
+    MaxHP:number = 6;
+    CurrentLevel:string = 'Level_5';
+    SaveLevel:string = 'Level_5';
     keys:number[] = [0,0,0,0];
 
     SwissPiecesCollected:number = 0;
