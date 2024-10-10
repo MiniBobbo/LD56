@@ -11,9 +11,10 @@ export class MainMenuScene extends Phaser.Scene {
     p1:Player;
     Hints:string[] = [
         'Avoid enemies until you find a weapon',
-        'The weapon is in the dungeon',
+        'There is only a single dungeon in the game',
         'You have to find the dungeon on your own',
         'You can find cheese in chests.  It gives you more health.',
+        'Want to refill your health?  Try dying!',
         'If you have trouble with the boss go find more cheese.',
         'If you are still having trouble with the boss, try playing better!'
     ]
@@ -43,6 +44,10 @@ export class MainMenuScene extends Phaser.Scene {
         this.Title.postFX.addGlow(0x000000);
         this.add.bitmapText(50,185,'8px','Definitely not a Zelda Ripoff').setTint(0xff0000);
         this.StartButton = this.CreateButton('Start Game', this.StartGame).setScale(2).setPosition(95,200);
+        this.CreateButton('SFX Volume Up', ()=>{ C.VolumeMult = Phaser.Math.Clamp(C.VolumeMult += .1, 0,1); C.sm.Play(SFX.Fireball); }).setPosition(250,200);
+        this.CreateButton('SFX Volume Down', ()=>{ C.VolumeMult = Phaser.Math.Clamp(C.VolumeMult -= .1, 0,1); C.sm.Play(SFX.Fireball); }).setPosition(250,215);
+        this.CreateButton('Music Volume Up', ()=>{ C.MusicVolumeMult = Phaser.Math.Clamp(C.MusicVolumeMult += .1, 0,1); C.Music.setVolume(C.MusicVolumeMult);}).setPosition(350,200);
+        this.CreateButton('Music Volume Down', ()=>{ C.MusicVolumeMult = Phaser.Math.Clamp(C.MusicVolumeMult -= .1, 0,1); C.Music.setVolume(C.MusicVolumeMult);}).setPosition(350,215);
         this.HintButton = this.add.bitmapText(50, 250, '8px', 'Click on me to get some hints before you start the game!').setInteractive().setTint(0x55ff55);
         this.HintButton.on('pointerdown', this.NextHint, this);
 

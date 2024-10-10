@@ -9,6 +9,7 @@ import { EntityMessages } from "../enums/EntityMessages";
 import { PowerTypes } from "../enums/PowerTypes";
 import { SceneMessages } from "../enums/SceneMessages";
 import { SetupMapHelper } from "../Helpers/SetupMapHelper";
+import { SFX } from "../Helpers/SoundManager";
 import { IH, IHVI } from "../IH/IH";
 import { LDtkMapPack, LdtkReader, Level } from "../map/LDtkReader";
 import { MapObjects } from "../map/MapObjects";
@@ -374,6 +375,21 @@ export class LevelScene extends Phaser.Scene {
         this.LevelTransition = false;
         // this.cameras.main.setBounds(this.currentMapPack.worldX, this.currentMapPack.worldY, this.currentMapPack.width, this.currentMapPack.height);
         // this.cameras.main.startFollow(this.mm.sprite);
+
+        //Play the correct song
+        switch (this.currentMapPack.level.fieldInstances[0].__value) {
+            case 'Dungeon':
+                C.sm.PlayMusic(SFX.Dungeon);
+                break;
+            case 'Adventure':
+                C.sm.PlayMusic(SFX.Adventure);
+                break;
+            case 'OldMan':
+                C.sm.PlayMusic(SFX.OldMan);
+                break;
+            default:
+                break;
+        }
 
         this.cameras.main.setScroll(this.currentMapPack.worldX, this.currentMapPack.worldY);
         this.physics.world.setBounds(this.currentMapPack.worldX, this.currentMapPack.worldY, this.currentMapPack.width, this.currentMapPack.height);

@@ -89,13 +89,13 @@ export class Preload extends Phaser.Scene {
         this.load.image('9box', '9box.png');
         this.load.image('shadow', 'shadow.png');
         this.load.image('bgs', 'bgs_1.png');
+        SM.LoadSounds(this);
     }
 
 
     create() {
         C.gd = new GameData();
 
-        C.sm = new SM(this);
 
         MM.CreateAnimations(this);
         Pillbug.CreateAnimations(this);
@@ -108,7 +108,6 @@ export class Preload extends Phaser.Scene {
         AttackManager.CreateAnimations(this);
         EffectManager.CreateAnimations(this);
 
-        SM.LoadSounds(this);
 
         IH.AddVirtualInput(IHVI.Up);
         IH.AddVirtualInput(IHVI.Down);
