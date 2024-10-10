@@ -87,6 +87,7 @@ export class MM extends Entity {
 
 
     TryAttack() {
+        // this.gs.sound.play(SFX.Stick);
         if(this.attackCooldown > 0)
             return;
         //First, try to interact

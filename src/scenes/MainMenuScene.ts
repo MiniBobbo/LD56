@@ -11,12 +11,21 @@ export class MainMenuScene extends Phaser.Scene {
     p1:Player;
     Hints:string[] = [
         'Avoid enemies until you find a weapon',
-        'There is only a single dungeon in the game',
+        'There is only a single chest on the start screen',
+        'There is only one dungeon in the game in the game',
         'You have to find the dungeon on your own',
         'You can find cheese in chests.  It gives you more health.',
         'Want to refill your health?  Try dying!',
         'If you have trouble with the boss go find more cheese.',
-        'If you are still having trouble with the boss, try playing better!'
+        'If you are still having trouble with the boss, try playing better!',
+        'There are 4 keys in the GUI because there were originally going to be 3 dungeons',
+        'That plan went out the window pretty early on',
+        'The game is a bit of a Zelda clone',
+        'Go left from the start to find the key',
+        'It is on an island',
+        'There are bushes.  Hit them with the stick',
+        'Why are you still reading these?',
+        'I am running out of ideas',
     ]
     currentHint:number = 0;
 

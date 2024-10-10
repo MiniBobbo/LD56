@@ -30,7 +30,7 @@ export class SM {
         } 
         let musicConfig = {
             mute: false,
-            volume: 0.5,
+            volume: C.MusicVolumeMult,
             rate: 1,
             detune: 0,
             seek: 0,
