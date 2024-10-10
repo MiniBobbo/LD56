@@ -36,7 +36,7 @@ export class MainMenuScene extends Phaser.Scene {
         }
 
         C.sm = new SM(this);
-        // C.sm.PlayMusic(SFX.Dungeon);
+        C.sm.PlayMusic(SFX.Dungeon);
 
         let  i = this.add.image(20,-20, 'atlas', 'SacredSwiss_2').setOrigin(0,0).setScale(2);
         let glow = i.postFX.addGlow(0xffffbb, 1);
