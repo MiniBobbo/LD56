@@ -5794,7 +5794,10 @@
 			"__smartColor": "#ADADB5",
 			"__bgPos": null,
 			"externalRelPath": null,
-			"fieldInstances": [{ "__identifier": "LevelName", "__type": "String", "__value": "Meadow", "__tile": null, "defUid": 22, "realEditorValues": [] }],
+			"fieldInstances": [{ "__identifier": "LevelName", "__type": "String", "__value": "OldMan", "__tile": null, "defUid": 22, "realEditorValues": [{
+				"id": "V_String",
+				"params": ["OldMan"]
+			}] }],
 			"layerInstances": [
 				{
 					"__identifier": "Entities",
@@ -6338,7 +6341,10 @@
 			"__smartColor": "#ADADB5",
 			"__bgPos": null,
 			"externalRelPath": null,
-			"fieldInstances": [{ "__identifier": "LevelName", "__type": "String", "__value": "Meadow", "__tile": null, "defUid": 22, "realEditorValues": [] }],
+			"fieldInstances": [{ "__identifier": "LevelName", "__type": "String", "__value": "Adventure", "__tile": null, "defUid": 22, "realEditorValues": [{
+				"id": "V_String",
+				"params": ["Adventure"]
+			}] }],
 			"layerInstances": [
 				{
 					"__identifier": "Entities",
@@ -14936,7 +14942,10 @@
 			"__smartColor": "#ADADB5",
 			"__bgPos": null,
 			"externalRelPath": null,
-			"fieldInstances": [{ "__identifier": "LevelName", "__type": "String", "__value": "Meadow", "__tile": null, "defUid": 22, "realEditorValues": [] }],
+			"fieldInstances": [{ "__identifier": "LevelName", "__type": "String", "__value": "Dungeon", "__tile": null, "defUid": 22, "realEditorValues": [{
+				"id": "V_String",
+				"params": ["Dungeon"]
+			}] }],
 			"layerInstances": [
 				{
 					"__identifier": "Entities",

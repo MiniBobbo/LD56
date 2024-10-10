@@ -1,5 +1,7 @@
+import { C } from "../../../C";
 import { QueenAnt } from "../../../Entities/Enemies/QueenAnt";
 import { AttackTypes } from "../../../enums/AttackTypes";
+import { SFX } from "../../../Helpers/SoundManager";
 import { LevelScene } from "../../../scenes/LevelScene";
 import { FSMModule } from "../../FSMModule";
 
@@ -30,6 +32,7 @@ export class QueenAntFireFSM extends FSMModule {
                 case 0:
                     let fireLocation = {x:this.QueenAnt.shadow.x - 10, y:this.QueenAnt.shadow.y - 10};
                     let angle = Phaser.Math.Angle.BetweenPoints(fireLocation, this.gs.mm.shadow.getCenter());
+                    this.gs.sound.play(SFX.Fireball, {volume:C.VolumeMult});
                     this.gs.BA.LaunchAttack({x:fireLocation.x, y:fireLocation.y - 10, angle:angle }, AttackTypes.Fireball);
                     this.gs.BA.LaunchAttack({x:fireLocation.x, y:fireLocation.y - 10, angle:angle-.5 }, AttackTypes.Fireball);
                     this.gs.BA.LaunchAttack({x:fireLocation.x, y:fireLocation.y - 10, angle:angle+.5 }, AttackTypes.Fireball);
@@ -39,6 +42,7 @@ export class QueenAntFireFSM extends FSMModule {
                 case 1:
                     let angle2 = Phaser.Math.Angle.BetweenPoints(this.QueenAnt.shadow, this.gs.mm.shadow);
                     this.gs.BA.LaunchAttack({x:this.QueenAnt.shadow.x - 10, y:this.QueenAnt.shadow.y - 10, angle:angle2 }, AttackTypes.Fireball);
+                    this.gs.sound.play(SFX.Fireball, {volume:C.VolumeMult});
 
                     this.delay = 500 + Phaser.Math.Between(-200,200);
                     this.stage++;

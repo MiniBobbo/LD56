@@ -16,7 +16,11 @@ export class C {
     static MOUSE_SENSITIVITY:number = .8;
 
     static sm:SM;
+    static VolumeMult:number = .5;
+    static MusicVolumeMult:number = .5;
     static KNOCKBACK:number = 50;
+
+    static Music:any;
 
     static SCREEN_TRANSITION_TIME:number = 500;
     static STICK_VELOCITY:number = 200;

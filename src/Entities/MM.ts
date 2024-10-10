@@ -68,6 +68,7 @@ export class MM extends Entity {
         this.scene.cameras.main.shake(100,.02);    
         super.Damage(damage, attackLocation);
         this.gs.guiScene.events.emit(EntityMessages.CHANGE_HP, this.hp, this.maxhp);
+        this.gs.sound.play(SFX.PlayerHit, {volume:C.VolumeMult});
         if(this.hp <=0) {
             // this.gs.physics.pause();
             this.gs.events.emit(EntityMessages.PLAYER_DEAD);
@@ -92,6 +93,8 @@ export class MM extends Entity {
         position.rotate(angle);
         this.scene.debugGraphics.clear();
 
+
+
         let o = {x:this.shadow.x + position.x, y:this.shadow.y + position.y, angle:angle};
         this.scene.debugGraphics.strokeCircle(o.x, o.y, 8);
 
@@ -110,6 +113,8 @@ export class MM extends Entity {
 
         if(!this.HasStick)
             return;
+        this.gs.sound.play(SFX.Stick, {volume:C.VolumeMult});
+
         angle = Phaser.Math.DegToRad(this.PointerAngleDeg);
         position = new Phaser.Math.Vector2(16, 0);
         position.rotate(angle);

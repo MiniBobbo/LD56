@@ -1,6 +1,7 @@
 import { C } from "../../C";
 import { MM } from "../../Entities/MM";
 import { EntityMessages } from "../../enums/EntityMessages";
+import { SFX } from "../../Helpers/SoundManager";
 import { FSMModule } from "../FSMModule";
 
 export class MMPickupFSM extends FSMModule {
@@ -35,6 +36,7 @@ export class MMPickupFSM extends FSMModule {
         if(this.PickupTime <= 0) {
             this.holding = true;
             this.mm.PlayAnimation('Hold');
+            this.mm.gs.sound.play(SFX.FoundItem, {volume:C.VolumeMult});
             this.image = this.mm.scene.add.image(this.mm.shadow.x, this.mm.shadow.y - 30, 'atlas', this.PickupFrame);
             this.image.postFX.addGlow();
             this.text = this.mm.scene.add.bitmapText(170,150, '8px', this.PickupDescription).setCenterAlign().setScrollFactor(0,0);
