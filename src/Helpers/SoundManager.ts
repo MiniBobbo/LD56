@@ -42,7 +42,8 @@ export class SM {
         scene.load.audio(SFX.EnemyHit, 'assets/sfx/EnemyHit.wav');
         scene.load.audio(SFX.EnemyDead, 'assets/sfx/EnemyDead.wav');
         // scene.load.audio(SFX.GetItem, 'assets/sfx/GetItem.wav');
-        scene.load.audio(SFX.Dungeon, 'assets/sfx/dungeon.ogg');
+        // scene.load.audio(SFX.Dungeon, 'assets/sfx/dungeon.ogg');
+        // scene.load.audio(SFX.Dungeon, 'sfx/dungeon.ogg');
 
     }
 
