@@ -3,6 +3,7 @@ import { PowerTypes } from "./enums/PowerTypes";
 import { EntityInstance } from "./map/LDtkReader";
 
 export class GameData {
+    debug:boolean = true;
     flags:Array<boolean>;
     brokenBlocks:Array<{level:string, x:number, y:number}>;
     CollectedPowerups:Array<{level:string, type:PowerTypes}>;
@@ -23,6 +24,12 @@ export class GameData {
             this.flags.push(false);
         this.brokenBlocks = [];
         this.CollectedPowerups = [];
+
+        if(this.debug) {
+            this.CurrentLevel = 'Level_27';
+            this.SaveLevel = 'Level_27';
+            this.IDsCollected.push('Stick');
+        }
     }
 
     IsBlockBroken(level:string, b:EntityInstance):boolean {

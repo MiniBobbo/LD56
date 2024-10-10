@@ -46,7 +46,10 @@ export class MM extends Entity {
 
         this.scene.Players.add(this.shadow);
 
-        
+
+        if (C.gd.IDsCollected.includes('Stick')) {
+            this.HasStick = true;
+        }
 
         this.on(EntityMessages.POINTER_POS, (p:{x:number, y:number})=> {
             this.PointerAngleDeg = Phaser.Math.RadToDeg(Phaser.Math.Angle.BetweenPoints(this.shadow, p));

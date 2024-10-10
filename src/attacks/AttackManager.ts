@@ -56,6 +56,7 @@ export class AttackManager {
 
     static CreateAnimations(scene:Phaser.Scene) {
         scene.anims.create({ key: 'Attack_Fireball', frameRate: 60, frames: scene.anims.generateFrameNames('atlas', { prefix: 'fireball_', end: 29}), repeat: -1});
+        
     }
 
 }

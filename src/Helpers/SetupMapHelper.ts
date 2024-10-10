@@ -22,6 +22,8 @@ import { BlockerTrigger } from "../Entities/Enemies/BlockerTrigger";
 import { BlockerKey } from "../Entities/Enemies/BlockerKey";
 import { QueenAnt } from "../Entities/Enemies/QueenAnt";
 import { SacredSwiss } from "../Entities/SacredSwiss";
+import { TriggerAttack } from "../Entities/Triggers/TriggerAttack";
+import { TriggerStep } from "../Entities/Triggers/TriggerStep";
 
 export class SetupMapHelper {
     static CurrentCollider:Phaser.Physics.Arcade.Collider;
@@ -140,6 +142,18 @@ export class SetupMapHelper {
                         blockKey.shadow.setPosition(worldposition.x, worldposition.y);
                         mo.mapEntities.push(blockKey);
                         maps.collideLayer.putTileAtWorldXY(5, worldposition.x, worldposition.y);
+                break;
+                case 'TriggerAttack':
+                        let tAttack = new TriggerAttack(gs, element);
+                        tAttack.shadow.setPosition(worldposition.x, worldposition.y);
+                        mo.mapEntities.push(tAttack);
+                        maps.collideLayer.putTileAtWorldXY(5, worldposition.x, worldposition.y);
+                break;
+                case 'TriggerStep':
+                        let tStep = new TriggerStep(gs, element);
+                        tStep.shadow.setPosition(worldposition.x, worldposition.y);
+                        mo.mapEntities.push(tStep);
+                        // maps.collideLayer.putTileAtWorldXY(5, worldposition.x, worldposition.y);
                 break;
                 case 'Travel':
                         let travelPoint = new TravelPoint(gs, element, element.fieldInstances[0].__value, element.fieldInstances[1].__value);
