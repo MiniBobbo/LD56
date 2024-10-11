@@ -4051,9 +4051,9 @@
 							"defUid": 82,
 							"px": [160,260],
 							"fieldInstances": [
-								{ "__identifier": "NewLevel", "__type": "String", "__value": "Level_5", "__tile": null, "defUid": 83, "realEditorValues": [{
+								{ "__identifier": "NewLevel", "__type": "String", "__value": "Level_1", "__tile": null, "defUid": 83, "realEditorValues": [{
 									"id": "V_String",
-									"params": ["Level_5"]
+									"params": ["Level_1"]
 								}] },
 								{ "__identifier": "EntryPointName", "__type": "String", "__value": "Main", "__tile": null, "defUid": 84, "realEditorValues": [{
 									"id": "V_String",
@@ -4595,9 +4595,9 @@
 							"defUid": 82,
 							"px": [60,60],
 							"fieldInstances": [
-								{ "__identifier": "NewLevel", "__type": "String", "__value": "Level_4", "__tile": null, "defUid": 83, "realEditorValues": [{
+								{ "__identifier": "NewLevel", "__type": "String", "__value": "Level_0", "__tile": null, "defUid": 83, "realEditorValues": [{
 									"id": "V_String",
-									"params": ["Level_4"]
+									"params": ["Level_0"]
 								}] },
 								{ "__identifier": "EntryPointName", "__type": "String", "__value": "Main", "__tile": null, "defUid": 84, "realEditorValues": [{
 									"id": "V_String",
@@ -8906,9 +8906,9 @@
 							"defUid": 82,
 							"px": [160,140],
 							"fieldInstances": [
-								{ "__identifier": "NewLevel", "__type": "String", "__value": "Level_21", "__tile": null, "defUid": 83, "realEditorValues": [{
+								{ "__identifier": "NewLevel", "__type": "String", "__value": "Level_17", "__tile": null, "defUid": 83, "realEditorValues": [{
 									"id": "V_String",
-									"params": ["Level_21"]
+									"params": ["Level_17"]
 								}] },
 								{ "__identifier": "EntryPointName", "__type": "String", "__value": "Main", "__tile": null, "defUid": 84, "realEditorValues": [{
 									"id": "V_String",

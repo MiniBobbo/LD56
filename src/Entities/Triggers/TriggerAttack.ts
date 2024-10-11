@@ -31,11 +31,14 @@ export class TriggerAttack extends Enemy {
 
 
     HitByAttack(a: AttackInstance): void {
-        this.gs.events.emit(SceneMessages.Trigger, this.IdAssigned);
     }
 
     HitByStick(): void {
+        if (this.Opened) {
+            return;
+        }
         this.gs.events.emit(SceneMessages.Trigger, this.IdAssigned);
+        this.Opened = true;
     }
 
     Raise() {

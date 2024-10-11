@@ -16,6 +16,7 @@ export class IH {
     private pad:Phaser.Input.Gamepad.Gamepad;
 
     private static MouseClickVI:string;
+    private static SecondaryMouseClickVI:string;
 
     PadCount:number = 0;
 
@@ -70,6 +71,10 @@ export class IH {
             this.VIDown.set(IH.MouseClickVI, true);
     }
 
+    static MapSecondaryMouseToVirtualInput(virtualInput:string) {
+        this.SecondaryMouseClickVI = virtualInput;
+    }
+    
     static MapMouseToVirtualInput(virtualInput:string) {
         this.MouseClickVI = virtualInput;
     }
@@ -92,8 +97,13 @@ export class IH {
 
         //Check mouse VI
         if(IH.MouseClickVI != null) {
-            if(this.s.input.activePointer.isDown)
+            if(this.s.input.activePointer.primaryDown)
                 this.VIDown.set(IH.MouseClickVI, true);
+        }
+        //Check the secondary mouse VI
+        if(IH.SecondaryMouseClickVI != null) {
+            if(this.s.input.activePointer.isDown && !this.s.input.activePointer.primaryDown)
+                this.VIDown.set(IH.SecondaryMouseClickVI, true);
         }
 
         for(let k of this.Keys) {
@@ -206,9 +216,9 @@ export enum IHVI {
     Down = 'down',
     Left = 'left',
     Right = 'right',
-    Dash = 'dash',
     Fire = 'fire',
-    Jump = 'jump',
     Pause = 'pause',
-    Map = 'map'
+    Map = 'map',
+    Roll = 'roll',
+    Secondary = 'secondary',
 }

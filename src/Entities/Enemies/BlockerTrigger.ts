@@ -46,15 +46,12 @@ export class BlockerTrigger extends Enemy {
 
     Raise() {
         this.PlayAnimation('Raise');
-        console.log('Raising Blocker');
-
         this.gs.currentMapPack.collideLayer.putTileAtWorldXY(5, this.shadow.x, this.shadow.y);
 
     }
 
     Lower() {
         this.PlayAnimation('Lower');
-        console.log('Lowering Blocker');
         this.gs.currentMapPack.collideLayer.putTileAtWorldXY(1, this.shadow.x, this.shadow.y);
     }
 

@@ -3,14 +3,14 @@ import { PowerTypes } from "./enums/PowerTypes";
 import { EntityInstance } from "./map/LDtkReader";
 
 export class GameData {
-    debug:boolean = true;
+    debug:boolean = false;
     flags:Array<boolean>;
     brokenBlocks:Array<{level:string, x:number, y:number}>;
     CollectedPowerups:Array<{level:string, type:PowerTypes}>;
     ExploredLevels:string[];
     MaxHP:number = 6;
-    CurrentLevel:string = 'Level_5';
-    SaveLevel:string = 'Level_5';
+    CurrentLevel:string = 'Level_1';
+    SaveLevel:string = 'Level_1';
     keys:number[] = [0,0,0,0];
 
     SwissPiecesCollected:number = 0;

@@ -110,7 +110,7 @@ export class LevelScene extends Phaser.Scene {
         this.ih = new IH(this);
 
         this.debug = this.add.text(0,0,"").setFontSize(12).setDepth(1000)
-        .setVisible(false)
+        .setVisible(true)
         .setScrollFactor(0,0);
         this.debugGraphics = this.add.graphics()
         // .setVisible(false)
@@ -184,7 +184,6 @@ export class LevelScene extends Phaser.Scene {
 
         this.mm.emit(EntityMessages.POINTER_POS, {x:this.Pointer.x + this.cameras.main.scrollX, y:this.Pointer.y + this.cameras.main.scrollY});
 
-        this.events.emit('debug', `Camera: ${this.cameras.main.scrollX}, ${this.cameras.main.scrollY}`, true);
         
         if(this.Paused) {
             if(this.ih.IsJustPressed(IHVI.Fire))
@@ -204,6 +203,11 @@ export class LevelScene extends Phaser.Scene {
 
         if(this.ih.IsJustPressed(IHVI.Fire)) {
             this.mm.emit(EntityMessages.TRY_ATTACK, this);
+        }
+
+        if(this.ih.IsJustPressed(IHVI.Secondary)) {
+            this.mm.emit(EntityMessages.TRY_SECONDARY, this);
+
         }
 
         if(this.mm.shadow.x < this.currentMapPack.worldX) {

@@ -14,6 +14,7 @@ import { LevelScene } from "../scenes/LevelScene";
 import { Entity, FacingEnum } from "./Entity";
 import { MMPickupFSM } from "../FSM/PlayerFSM/MMPickupFSM";
 import { SFX } from "../Helpers/SoundManager";
+import { MMRollFSM } from "../FSM/PlayerFSM/MMRollFSM";
 
 export class MM extends Entity {
     attacking:boolean;
@@ -23,6 +24,7 @@ export class MM extends Entity {
 
     attackSprite:Phaser.GameObjects.Sprite;
     PointerAngleDeg:number;
+    MovementAngle:number = 0;
 
     HasStick:boolean = false;
 
@@ -37,6 +39,7 @@ export class MM extends Entity {
         this.fsm.addModule('attack', new MMAttackFSM(this, this.fsm));
         this.fsm.addModule('end', new MMEndFSM(this, this.fsm));
         this.fsm.addModule('move', new MMGroundFSM(this, this.fsm));
+        this.fsm.addModule('roll', new MMRollFSM(this, this.fsm));
         this.fsm.addModule('pickup', new MMPickupFSM(this, this.fsm));
         this.fsm.addModule('knockback', new MMKnockbackFSM(this, this.fsm));
         this.fsm.changeModule('move');
@@ -53,7 +56,6 @@ export class MM extends Entity {
 
         this.on(EntityMessages.POINTER_POS, (p:{x:number, y:number})=> {
             this.PointerAngleDeg = Phaser.Math.RadToDeg(Phaser.Math.Angle.BetweenPoints(this.shadow, p));
-            this.scene.events.emit('debug', `Pointer angle: ${this.PointerAngleDeg}`, true);
         }, this);
 
     }
@@ -153,20 +155,20 @@ export class MM extends Entity {
         this.shadow.setAcceleration(0,0);
         this.shadow.setAcceleration(0,0);
         this.changeFSM('attack');
-        
-        
-        // this.scene.BA.LaunchAttack(o, AttackTypes.StickSwing);
-        // var debugmessage = `Attacking at ${o.x}, ${o.y}\n`;
-        // debugmessage += `shadow position: ${this.shadow.x}, ${this.shadow.y}\n`; 
-        // debugmessage += `position: ${position.x}, ${position.y}\n`; 
-        // debugmessage += `angle: ${Phaser.Math.RadToDeg(angle)}`;
-        // this.scene.events.emit('debug', debugmessage, true);
+    }
 
+    TrySecondary() {
+        console.log('Secondary');
     }
 
     Update(time:number, dt:number) {
         super.Update(time, dt);
-        // this.scene.events.emit('debug', `FSM: ${this.fsm.currentModuleName}`);
+        this.scene.events.emit('debug', `FSM: ${this.fsm.currentModuleName}\nMove Angle: ${this.MovementAngle}`, true);
+
+
+    }
+
+    TryRoll() {
     }
 
     static CreateAnimations(scene:Phaser.Scene) {

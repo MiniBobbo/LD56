@@ -113,11 +113,11 @@ export class Preload extends Phaser.Scene {
         IH.AddVirtualInput(IHVI.Down);
         IH.AddVirtualInput(IHVI.Left);
         IH.AddVirtualInput(IHVI.Right);
-        IH.AddVirtualInput(IHVI.Dash);
-        IH.AddVirtualInput(IHVI.Jump);
+        IH.AddVirtualInput(IHVI.Roll);
         IH.AddVirtualInput(IHVI.Fire);
         IH.AddVirtualInput(IHVI.Pause);
         IH.AddVirtualInput(IHVI.Map);
+        IH.AddVirtualInput(IHVI.Secondary);
 
         IH.AssignKeyToVirtualInput('W', IHVI.Up);
         IH.AssignKeyToVirtualInput('A', IHVI.Left);
@@ -125,8 +125,7 @@ export class Preload extends Phaser.Scene {
         IH.AssignKeyToVirtualInput('D', IHVI.Right);
         IH.AssignKeyToVirtualInput('E', IHVI.Map);
         IH.AssignKeyToVirtualInput('J', IHVI.Fire);
-        IH.AssignKeyToVirtualInput('K', IHVI.Jump);
-        IH.AssignKeyToVirtualInput('L', IHVI.Dash);
+        IH.AssignKeyToVirtualInput('SPACE', IHVI.Roll);
         IH.AssignKeyToVirtualInput('ENTER', IHVI.Pause);
 
         IH.AssignKeyToVirtualInput('UP', IHVI.Up);
@@ -134,18 +133,16 @@ export class Preload extends Phaser.Scene {
         IH.AssignKeyToVirtualInput('DOWN', IHVI.Down);
         IH.AssignKeyToVirtualInput('RIGHT', IHVI.Right);
         IH.AssignKeyToVirtualInput('Z', IHVI.Fire);
-        IH.AssignKeyToVirtualInput('X', IHVI.Jump);
-        IH.AssignKeyToVirtualInput('C', IHVI.Dash);
         IH.AssignKeyToVirtualInput('', IHVI.Pause);
 
         IH.MapMouseToVirtualInput(IHVI.Fire);
+        IH.MapSecondaryMouseToVirtualInput(IHVI.Secondary)
 
         IH.AssignPadButtonToVirtualInput(GamepadButtons.Up, IHVI.Up);
         IH.AssignPadButtonToVirtualInput(GamepadButtons.Down, IHVI.Down);
         IH.AssignPadButtonToVirtualInput(GamepadButtons.Left, IHVI.Left);
         IH.AssignPadButtonToVirtualInput(GamepadButtons.Right, IHVI.Right);
         IH.AssignPadButtonToVirtualInput(GamepadButtons.X, IHVI.Fire);
-        IH.AssignPadButtonToVirtualInput(GamepadButtons.A, IHVI.Jump);
         IH.AssignPadButtonToVirtualInput(GamepadButtons.RightTrigger, IHVI.Map);
         IH.AssignPadButtonToVirtualInput(GamepadButtons.Plus, IHVI.Pause);
     }

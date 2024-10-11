@@ -14,6 +14,7 @@ export class MMGroundFSM extends FSMModule {
         // this.mm.scene.events.on('mergedInput', this.CheckInput, this);
         this.mm.AddAnimationSuffix = true;
         this.mm.on(EntityMessages.TRY_ATTACK, this.mm.TryAttack, this.mm);
+        this.mm.on(EntityMessages.TRY_SECONDARY, this.mm.TrySecondary, this.mm);
 
     }
 
@@ -29,6 +30,7 @@ export class MMGroundFSM extends FSMModule {
         // this.mm.scene.events.removeListener('mergedInput', this.CheckInput, this);
         this.mm.removeListener('animationupdate', this.AnimationUpdate, this);
         this.mm.removeListener(EntityMessages.TRY_ATTACK, this.mm.TryAttack, this.mm);
+        this.mm.removeListener(EntityMessages.TRY_SECONDARY, this.mm.TrySecondary, this.mm);
     }
 
     // CheckInput(i:{ device:string, value:number, player:number, action:string, state:string }) {
@@ -37,6 +39,7 @@ export class MMGroundFSM extends FSMModule {
     //     }
     // }
 
+    movement:Phaser.Math.Vector2 = new Phaser.Math.Vector2(0,0);
     update(dt:number) {
         let input = this.mm.ih;
         // this.mm.sprite.setAcceleration(0,0);
@@ -44,6 +47,7 @@ export class MMGroundFSM extends FSMModule {
         this.mm.shadow.setDrag(1000);
         // this.mm.sprite.setMaxVelocity(C.MOVE_SPEED,C.MOVE_SPEED);
 
+        
 
         let speed = 1000;
         let xdir = 0;
@@ -60,6 +64,15 @@ export class MMGroundFSM extends FSMModule {
         if(input.IsPressed(IHVI.Down)) {
             ydir +=1;
         } 
+
+        this.movement.set(xdir,ydir);
+
+        this.mm.MovementAngle = this.movement.angle();
+
+        if(this.mm.gs.ih.IsJustPressed(IHVI.Roll)) {
+            this.parent.changeFSM('roll');
+            return;
+        }
 
         // if(input.IsJustPressed(IHVI.Jump)) {
         //     this.mm.ZVel = this.mm.JumpStrength;
