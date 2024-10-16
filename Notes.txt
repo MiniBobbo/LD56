@@ -1,8 +1,3 @@
-Dwarf dug too deep and punctured a lava vein.  Climb upwards to escape the mines before they are flooded with lava.
-
-Powers:
-Pick upgrade (break stronger blocks)
-Climbing Gloves (grab corners and ledges)
-Steel Booots (Stomp down)
-Firestone (Lights up darkness)
-Grappeling Hook (Drawn to ceiling.  Resets on touching floor)
+Upgrades - 
+Stick (breaks bushes)
+Shield (blocks shots)

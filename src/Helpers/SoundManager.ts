@@ -48,6 +48,7 @@ export class SM {
     static LoadSounds(scene:Phaser.Scene) {
         scene.load.audio(SFX.Stick, 'sfx/Stick.wav');
         scene.load.audio(SFX.Fireball, 'sfx/Fireball.wav');
+        scene.load.audio(SFX.Unlocked, 'sfx/Unlock.wav');
         scene.load.audio(SFX.PlayerHit, 'sfx/Hit.wav');
         scene.load.audio(SFX.EnemyHit, 'sfx/EnemyHit.wav');
         scene.load.audio(SFX.EnemyDead, 'sfx/EnemyDead.wav');
@@ -71,4 +72,6 @@ export enum SFX {
     FoundItem = "FoundItem",
     OldMan = 'OldMan',
     Adventure = "Adventure",
+    Unlocked = "Unlocked",
+
 }

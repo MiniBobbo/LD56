@@ -1,6 +1,7 @@
 import { C } from "../C";
 import { EntityMessages } from "../enums/EntityMessages";
 import { SceneMessages } from "../enums/SceneMessages";
+import { SFX } from "../Helpers/SoundManager";
 import { EntityInstance } from "../map/LDtkReader";
 import { GuiEvents } from "../scenes/GuiScene";
 import { LevelScene } from "../scenes/LevelScene";
@@ -71,6 +72,7 @@ export class Chest extends Entity {
 
         this.sprite.setFrame('Chest_1');
         C.gd.keys[this.KeyNum]--;
+        C.sm.Play(SFX.Unlocked);
         this.gs.mm.changeFSM('pickup', [frame, message ]);
         C.gd.IDsCollected.push(this.ID);
         this.gs.guiScene.events.emit(GuiEvents.UPDATE_KEYS);
